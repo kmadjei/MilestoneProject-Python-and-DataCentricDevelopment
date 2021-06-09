@@ -24,7 +24,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # binds the home function to the default url route / view page
 @app.route("/")
 def home():
-    return 'Hello Kennih '
+    return render_template('home.html')
 
 
 # runs the flask application as the main module
