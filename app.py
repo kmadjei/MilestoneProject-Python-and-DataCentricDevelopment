@@ -5,7 +5,6 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -13,19 +12,19 @@ if os.path.exists("env.py"):
 app = Flask(__name__)
 
 # set the config Key & values of the flask app
-app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+# app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+# app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 # gets secret key for Flash message object
 app.secret_key = os.environ.get("SECRET_KEY")
 
 # connects the flask app to the MongoDB server
-mongo = PyMongo(app)
+# mongo = PyMongo(app)
 
 
-# binds the get_tasks function to the default routing / url view of the app
+# binds the home function to the default url route / view page
 @app.route("/")
 def home():
-    pass
+    return 'Hello Kennih '
 
 
 # runs the flask application as the main module
