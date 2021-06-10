@@ -1,4 +1,15 @@
 body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+
+}
+
+/* Home page styling */
+.home-content{
     /* 
         The image from unsplash by - Lily Banse
         https://unsplash.com/photos/-YHSwy6uqvk 
@@ -10,13 +21,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
 }
-
-nav {
-
-}
-
 .home-content img {
     display: block;
     margin: 20px 0 auto;
@@ -24,17 +29,16 @@ nav {
     height: 300px;
     opacity: 0.75;
 }
-
 .home-content h1 {
     font-size: 55px;
     font-weight: 700;
 }
-
 .home-content p {
     color: #fff176;
     font-size: 20px;
 }
 
+/* styling for footer */
 footer {
     display: flex;
     justify-content: center;

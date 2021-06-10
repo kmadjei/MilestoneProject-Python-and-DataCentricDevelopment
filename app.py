@@ -27,6 +27,11 @@ def home():
     return render_template('home.html')
 
 
+@app.route('/recipes')
+def get_recipes():
+    return render_template('recipes.html')
+
+
 # runs the flask application as the main module
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
