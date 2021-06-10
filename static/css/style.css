@@ -10,4 +10,28 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+}
+
+nav {
+
+}
+
+.home-content img {
+    display: block;
+    margin: 20px 0 auto;
+    width: 250px;
+    height: 300px;
+    opacity: 0.75;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    left: 0; 
+    bottom: 0;
+    width: 100%;
 }
