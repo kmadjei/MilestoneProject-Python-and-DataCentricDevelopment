@@ -1,9 +1,7 @@
 body {
-
     /* 
         The image from unsplash by - Lily Banse
         https://unsplash.com/photos/-YHSwy6uqvk 
-        "{{ url_for('static', filename='css/style.css') }}"
     */
     background-image: url("../images/food-bg.jpg");
     height: 100vh;
