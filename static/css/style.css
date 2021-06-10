@@ -25,6 +25,16 @@ nav {
     opacity: 0.75;
 }
 
+.home-content h1 {
+    font-size: 55px;
+    font-weight: 700;
+}
+
+.home-content p {
+    color: #fff176;
+    font-size: 20px;
+}
+
 footer {
     display: flex;
     justify-content: center;
