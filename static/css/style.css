@@ -38,6 +38,12 @@ nav {
     font-size: 20px;
 }
 
+/* Styling for recipes page */
+.recipes-content .food-img {
+    height: 180px;
+    cursor: default;
+}
+
 /* styling for footer */
 footer {
     display: flex;
