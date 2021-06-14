@@ -37,30 +37,36 @@ def get_recipes():
 
     return render_template('recipes.html', categories = categories)
 
-@app.route('/recipes/<category>')
-def get_food_category(category):
-    pass
+
+# @app.route('/recipes/list')
+# def show_all_recipe():
+#     pass
 
 
-@app.route('/recipes/list')
-def show_all_recipe():
-    pass
+@app.route('/add_recipe')
+def add_recipe():
+    return render_template('add_recipe.html')
 
-@app.route('/delete_category')
-def delete_category():
-    pass
 
-@app.route('/edit_category')
-def delete_category():
-    pass
+# @app.route('/recipes/<category>')
+# def get_food_category(category):
+#     pass
 
-@app.route('/delete_recipe')
-def edit_recipe():
-    pass
+# @app.route('/delete_category')
+# def delete_category():
+#     pass
 
-@app.route('/edit_recipe')
-def edit_recipe():
-    pass
+# @app.route('/edit_category')
+# def delete_category():
+#     pass
+
+# @app.route('/delete_recipe')
+# def edit_recipe():
+#     pass
+
+# @app.route('/edit_recipe')
+# def edit_recipe():
+#     pass
 
 
 # runs the flask application as the main module
