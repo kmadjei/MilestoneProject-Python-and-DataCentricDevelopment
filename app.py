@@ -31,8 +31,7 @@ def home():
 @app.route('/recipes')
 def get_recipes():
     categories = list(mongo.db.food_categories.find())
-
-    
+        
     #loop to find list of matching categories and display none for 0 list
 
     return render_template('recipes.html', categories = categories)
@@ -45,7 +44,8 @@ def get_recipes():
 
 @app.route('/add_recipe')
 def add_recipe():
-    return render_template('add_recipe.html')
+    categories = list(mongo.db.food_categories.find())
+    return render_template('add_recipe.html', categories = categories)
 
 
 # @app.route('/recipes/<category>')

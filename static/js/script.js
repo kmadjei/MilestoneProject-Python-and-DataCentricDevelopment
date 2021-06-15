@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // materilize-css elements
-    $('select').formSelect();
+    //$('select').formSelect();
 
 
 

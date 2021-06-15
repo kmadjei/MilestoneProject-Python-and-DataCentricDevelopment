@@ -2,6 +2,7 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 nav {
@@ -49,9 +50,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: blue;
     color: #fff;
-    position: absolute;
+    /* position: absolute;
     left: 0; 
     bottom: 0;
-    width: 100%;
+    width: 100%; */
 }
