@@ -2,16 +2,16 @@
 {% block content %}
 <main class="add-recipe-wrapper">
     <div class="row container">
-        <h2>Add a Recipe</h2>
+        <h2>Add A Recipe</h2>
         <form id="recipe-form" action="" method="POST">
-            <div class="row s12">
+            <div class="row">
                 <div class="col s12 m6">
                     <label for="recipe_name">Recipe Name</label>
                     <input type="text" id="recipe_name" name="recipe_name" required>
                 </div>
                 <div class="col s12 m6">
                     <label for="category">Category</label>
-                    <select class="browser-default" id="category"  name="category">
+                    <select class="browser-default" id="category"  name="category" required>
                         <option value="" disabled selected>Choose your option</option>
                         {% for category in categories %}
                             <option value="{{ category.name }}">{{ category.name }}</option>
@@ -19,24 +19,33 @@
                     </select>
                 </div>
             </div>
-            <div class="row"> 
-                <div class="col s12">
-                    <label for="ingredients">Ingredients (Separate each ingredient by comma)</label>
-                    <textarea id="ingredients" name="ingredients" class="materialize-textarea" required></textarea>
-                </div>
-                <div class="col s12">
-                    <label for="prep">Preparation steps (Separate each step by comma)</label>
-                    <textarea id="prep" name="prep" class="materialize-textarea" required></textarea>
-                </div>
-                <div class="col s12">
+            <div class="row">
+                <div class="col s12 m6">
                     <label for="img_url">Image URL (optional)</label>
                     <input type="text" id="img_url" name="img_url">
                 </div>
-                <div class="col s12">
+                <div class="col s12 m6">
                     <label for="author">Author</label>
                     <input type="text" id="author" name="author" required>
                 </div>
             </div>
+            <div class="row"> 
+                <div class="col s12">
+                    <label for="ingredients">Ingredients (separate each ingredient by comma) <span></span></label>
+                    <textarea id="ingredients" name="ingredients" class="materialize-textarea" required></textarea>
+                </div>
+
+                <div class="col s12">
+                    <label for="prep">Preparation steps (Add new lines per step)</label>
+                    <a id="add_prep_step" class="btn-floating btn-small waves-effect green tooltipped" data-position="top" data-tooltip="Add another step"><i class="material-icons">add</i></a>
+                    <textarea id="prep" name="prep1" class="materialize-textarea" required></textarea>
+                </div>
+            </div>
+            
+            <button class="btn waves-effect waves-light" type="submit" name="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+                    
         </form>
     </div>
 </main>

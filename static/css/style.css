@@ -45,6 +45,12 @@ nav {
     cursor: default;
 }
 
+/* Add recipe page styling */
+#add_prep_step, .delete_step {
+    float: right;
+}
+
+
 /* styling for footer */
 footer {
     display: flex;
