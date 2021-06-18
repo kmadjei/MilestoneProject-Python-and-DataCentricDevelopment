@@ -5,6 +5,8 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from re import search
+from markupsafe import escape
 if os.path.exists("env.py"):
     import env
 
@@ -45,9 +47,23 @@ def get_recipes():
 @app.route('/add_recipe',  methods=["GET", "POST"])
 def add_recipe():
     categories = list(mongo.db.food_categories.find())
+
+    if request.method == 'POST':
+
+        # build list for recipe preparation steps
+        recipe_prep = []
+        for input in request.form:
+            if search("prep", input):
+                prep_step = filter_data(request.form[input])
+                recipe_prep.append(prep_step)
+        print(recipe_prep)
+        print()
+               
+
     return render_template('add_recipe.html', categories = categories)
 
-def filter(input):
+
+def filter_data(input):
     '''Trim white space and Protect against injection attacks'''
     input = escape(input.strip())
     return input

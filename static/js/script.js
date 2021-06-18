@@ -9,7 +9,7 @@ $(document).ready(function(){
         //console.log($('#recipe-form div.row').last().children().last().text())
         $('#recipe-form div.row').eq(2).children().last().append(`
             <a class="delete_step btn-floating btn-small waves-effect red tooltipped" data-position="left" data-tooltip="Delete"><i class="material-icons">delete_forever</i></a>
-            <textarea id="prep${step +=1}" name="prep${step}" class="materialize-textarea" required></textarea>
+            <textarea id="prep${step +=1}" name="prep${step}" class="validate materialize-textarea" required></textarea>
         `);
 
        // removes new line added when trash icon is clicked
