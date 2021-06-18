@@ -42,10 +42,15 @@ def get_recipes():
 #     pass
 
 
-@app.route('/add_recipe')
+@app.route('/add_recipe',  methods=["GET", "POST"])
 def add_recipe():
     categories = list(mongo.db.food_categories.find())
     return render_template('add_recipe.html', categories = categories)
+
+def filter(input):
+    '''Trim white space and Protect against injection attacks'''
+    input = escape(input.strip())
+    return input
 
 
 # @app.route('/recipes/<category>')
