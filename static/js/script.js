@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // Materialize-css elements initialization
-    //$('select').formSelect();
+    $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
 
     // Adds new line for Preparation steps

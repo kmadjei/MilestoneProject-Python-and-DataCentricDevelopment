@@ -7,6 +7,8 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from re import search
 from markupsafe import escape
+from datetime import datetime
+import json
 if os.path.exists("env.py"):
     import env
 
@@ -39,28 +41,61 @@ def get_recipes():
     return render_template('recipes.html', categories = categories)
 
 
-# @app.route('/recipes/list')
+@app.route('/recipes/list')
+def show_all_recipe():
+    recipes = list(mongo.db.food.find())
+    return render_template('show_recipes.html', recipes=recipes)
+
+# @app.route('/recipes/list/<name>')
 # def show_all_recipe():
-#     pass
+#     return render_template('show_recipes.html')
 
 
 @app.route('/add_recipe',  methods=["GET", "POST"])
 def add_recipe():
     categories = list(mongo.db.food_categories.find())
 
+    # validate recipe form submitted
     if request.method == 'POST':
-
         # build list for recipe preparation steps
         recipe_prep = []
         for input in request.form:
             if search("prep", input):
-                prep_step = filter_data(request.form[input])
+                prep_step = request.form[input]
                 recipe_prep.append(prep_step)
-        print(recipe_prep)
-        print()
-               
+        # convert to a set element
+        #recipe_prep = recipe_prep
+     
+        # create ingredients list
+        ingredients = request.form.get('ingredients').split(",")
+        # filter out user input data for ingredients - protect against injections
+        #list_of_ingredients = set(map(filter_data, ingredients)) 
 
-    return render_template('add_recipe.html', categories = categories)
+        recipe_name = request.form.get('recipe_name')
+        recipe_category = request.form.get('category')
+        recipe_author = request.form.get('author')
+        recipe_img_url = request.form.get('img_url')
+        created_at = datetime.now().strftime("%x")
+
+        recipe_details = {
+            'name': recipe_name,
+            'category': recipe_category,
+            'image_url': recipe_img_url,
+            'author': recipe_author,
+            'ingredients': ingredients,
+            'preparations': json.dumps(recipe_prep),
+            'created_at': created_at
+        }
+
+        mongo.db.food.insert_one(recipe_details)
+
+        # user feedback - flash message
+        flash("Recipe Successfully Added")
+        
+        #redirect to listed recipes
+        return redirect(url_for("show_all_recipe"))          
+
+    return render_template('add_recipe.html', categories=categories)
 
 
 def filter_data(input):
