@@ -29,7 +29,21 @@
                     <input class="validate" type="text" id="author" name="author" required>
                 </div>
             </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <label for="prep_time">Prep Time (minutes)</label>
+                    <input class="validate" type="number" id="prep_time" name="prep_time" required>
+                </div>
+                <div class="col s12 m6">
+                    <label for="cook_time">Cook Time (minutes)</label>
+                    <input class="validate" type="number" id="cook_time" name="cook_time" required>
+                </div>
+            </div>
             <div class="row"> 
+                <div class="col s12">
+                    <label for="description">Description (optional)<span></span></label>
+                    <textarea id="description" name="description" class="validate materialize-textarea"></textarea>
+                </div>
                 <div class="col s12">
                     <label for="ingredients">Ingredients (Separate each ingredient by comma) <span></span></label>
                     <textarea id="ingredients" name="ingredients" class="validate materialize-textarea" required></textarea>

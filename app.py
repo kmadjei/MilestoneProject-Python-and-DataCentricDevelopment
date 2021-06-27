@@ -154,25 +154,7 @@ def filter_data(input):
     return input
 
 
-# @app.route('/recipes/<category>')
-# def get_food_category(category):
-#     pass
 
-# @app.route('/delete_category')
-# def delete_category():
-#     pass
-
-# @app.route('/edit_category')
-# def delete_category():
-#     pass
-
-# @app.route('/delete_recipe')
-# def edit_recipe():
-#     pass
-
-# @app.route('/edit_recipe')
-# def edit_recipe():
-#     pass
 
 
 # runs the flask application as the main module

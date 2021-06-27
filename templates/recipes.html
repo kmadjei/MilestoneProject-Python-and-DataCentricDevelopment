@@ -3,9 +3,9 @@
 <main class="recipes-content">
 
     <div class="container row">
-        <h2 id="page-title" class="center-align pink-text text-darken-4">Recipe Category</h2>
-        <!-- Trigger for Add category modal -->
-        <button class="left center-alignwaves-effect waves-light btn-large yellow darken-4 modal-trigger" data-target="add-category"><i class="material-icons left">add_box</i>Add Category</button>
+        <h2 id="page-title" class="center-align pink-text text-darken-4">Recipe Menus</h2>
+        <!-- Trigger for Add menu category modal -->
+        <button class="left center-alignwaves-effect waves-light btn-large yellow darken-4 modal-trigger" data-target="add-category"><i class="material-icons left">add_box</i>Add A Menu</button>
         <a class="right center-align waves-effect waves-light btn-large yellow darken-4" href="{{ url_for('show_all_recipes') }}"><i class="material-icons right">assignment</i>View All Recipes</a>
     </div>
 
@@ -40,8 +40,6 @@
         
     </div>
     
-    <!-- TO BE IMPLEMENTED
-        Loop through category find list and display none when no results found -->
     <section class="container row">        
         {% for category in categories1 %}
             <div class="col s12  m4 l3 ">
@@ -81,17 +79,11 @@
                             </div>
                             <input type="hidden" id="category_id" name="category_id" value="{{ category._id }}">
                             <div class="modal-footer">
-                                <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="image-url" name="image-url" type="text" value="{{ category.img_url }}" class="validate" required>
-                                    <label for="image-url">Image URL Address</label>
-                                </div>
-                            </div>
                                 <button class="btn left waves-effect yellow darken-4  pulse" type="submit" name="edit-category">Submit
                                     <i class="material-icons right">send</i>
                                 </button>
                                 <button class="modal-close waves-effect btn-floating right btn-large red"><i class="material-icons">close</i></button>
-                            </div>
+                            </div>  
                         </form>
                     </div>
                 </div>
