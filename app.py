@@ -32,26 +32,76 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/recipes')
+@app.route('/recipes', methods=["GET", "POST"])
 def get_recipes():
-    categories = list(mongo.db.food_categories.find())
-        
-    #loop to find list of matching categories and display none for 0 list
 
-    return render_template('recipes.html', categories = categories)
+    # form submission
+    if request.method == 'POST':
+
+        # validates add-category form
+        if 'add-category' in request.form.keys():        
+            add_category = {
+                'name': request.form.get('recipe-category'),
+                'img_url': request.form.get('image-url')
+            }
+
+            # adds category to db
+            mongo.db.food_categories.insert_one(add_category)
+            flash(f'Successfully added {add_category["name"]}')
+
+        # validates edit-category form
+        if 'edit-category' in request.form.keys():        
+            edit_category = {
+                'name': request.form.get('recipe-category'),
+                'img_url': request.form.get('image-url')
+            }
+            category_id = {"_id": ObjectId(request.form.get('category_id'))}
+
+            # edit category in db
+            mongo.db.food_categories.update_one(category_id, {'$set': edit_category})
+            flash(f'Successfully edited {edit_category["name"]}')
+
+         # deletes selected category
+        if 'delete-category' in request.form.keys():
+
+            category_id = {"_id": ObjectId(request.form.get('category_id'))}
+            mongo.db.food_categories.delete_one(category_id)
+            flash(f'Successful Deletion')
+
+    # get food category data from db
+    categories1 = list(mongo.db.food_categories.find({}))
+
+    # Build new list that only dispplays food_categories with listed recipes
+    categories2 = [{}]
+    row2 = 0
+    for row in range(len(categories1)):
+
+        display_category_query = list(mongo.db.food.find({'category': categories1[row]['name']}))
+
+        # filter through user data to protect against html injections
+        if len(display_category_query) > 0:
+            categories2[row2]['_id'] = categories1[row]['_id']
+            categories2[row2]['name'] = filter_data(categories1[row]['name'])
+            categories2[row2]['img_url'] = filter_data(categories1[row]['img_url'])
+            row2 +=1
+        print()
+        print(categories2)
+
+
+    return render_template('recipes.html', categories1 = categories1, categories2 = categories2)
 
 
 @app.route('/recipes/list')
-def show_all_recipe():
+def show_all_recipes():
     recipes = list(mongo.db.food.find())
     return render_template('show_recipes.html', recipes=recipes)
 
 # @app.route('/recipes/list/<name>')
-# def show_all_recipe():
-#     return render_template('show_recipes.html')
+# def recipe_details():
+#    pass
 
 
-@app.route('/add_recipe',  methods=["GET", "POST"])
+@app.route('/add_recipe', methods=["GET", "POST"])
 def add_recipe():
     categories = list(mongo.db.food_categories.find())
 

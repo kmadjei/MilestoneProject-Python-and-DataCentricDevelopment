@@ -1,7 +1,8 @@
 $(document).ready(function(){
     // Materialize-css elements initialization
-    $('.sidenav').sidenav({edge: "right"});
+    $(".sidenav").sidenav({edge: "right"});
     $('.tooltipped').tooltip();
+    $('.modal').modal();
 
     // Adds new line for Preparation steps
     let step = 1;

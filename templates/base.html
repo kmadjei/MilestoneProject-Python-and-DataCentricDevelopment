@@ -13,34 +13,52 @@
 </head>
 <body>
   <!-- Remember to write jquery for mobile nav -->
-  <div class="navbar-fixed">
+  <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper red darken-4">
-        <a id="logo" href="{{ url_for ('home') }}" class="brand-logo">Food Lovers</a>
+        <a id="logo" href="{{ url_for('home') }}" class="brand-logo">Food Lovers</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="{{ url_for ('home') }}">Home</a></li>
-          <li><a href="{{ url_for ('get_recipes') }}">Recipes</a></li>
-          <li><a href="{{ url_for ('add_recipe') }}">Add Recipe</a></li> 
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+          <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li> 
         </ul>
       </div>
     </nav>
-  </div>
-  
-  <!-- Side Navigation -->
+
+  <!-- Mobile Side Navigation -->
   <ul class="sidenav" id="mobile-demo">
     <li><a href="sass.html">Sass</a></li>
     <li><a href="badges.html">Components</a></li>
     <li><a href="collapsible.html">Javascript</a></li>
     <li><a href="mobile.html">Mobile</a></li>
   </ul>
-            
+           
+  </header>
+  
+  <section>
+    <!-- 
+      Display flash message feed back for users
+      Source code example from CODE institute 'Backend Development' module
+      https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/templates/base.html
+     -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="row flashes">
+                    <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </section>
+  
   
   {% block content %}
   {% endblock %}
  
 
-  <footer class="grey darken-4" >
+  <footer class="grey darken-2" >
     <p>Copyright 2021 &copy; Canadian Business College - Milestone Project - Python and Data Centric
       Development - Kenneth Adjei</p>
   </footer>

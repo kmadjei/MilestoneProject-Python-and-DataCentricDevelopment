@@ -5,8 +5,11 @@ body {
     position: relative;
 }
 
-nav {
-
+nav #logo {
+    font-size: 20px;
+    margin-left: 10px;
+    font-style: italic;
+    font-weight: 600;
 }
 
 /* Home page styling */
@@ -35,7 +38,8 @@ nav {
     font-weight: 700;
 }
 .home-content p {
-    color: #fff176;
+    color: white;
+    font-weight: bold;
     font-size: 20px;
 }
 
@@ -61,6 +65,5 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: blue;
     color: #fff;
 }
