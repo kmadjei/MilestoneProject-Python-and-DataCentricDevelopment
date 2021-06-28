@@ -19,9 +19,38 @@ $(document).ready(function(){
             $(this).remove();
         });
     });
+    
+    // add-recipe-form validation
+    $('#add-recipe-form').submit(function(){
+        //console.log($('#add-recipe-form input'));
+        if ($('#recipe_name').val().trim() == '') {
+            alert('Make sure all required fields are filled out.');
+            return false;
+        }
+
+        if ($('#img_url').val().trim() == '') {
+            alert('Make sure all required fields are filled out.');
+            return false;
+        }
+
+        if ($('#author').val().trim() == '') {
+            alert('Make sure all required fields are filled out.');
+            return false;
+        }
+
+        if ($('#ingredients').val().trim() == '') {
+            alert('Make sure all required fields are filled out.');
+            return false;
+        }
+
+        if ($('#prep').val().trim() == '') {
+            alert('Make sure all required fields are filled out.');
+            return false;
+        }
+    
+    });
 
     
-
-    //$('#add_prep_step'). $("p").after()("Some appended text.");
-
+    
+    
 });

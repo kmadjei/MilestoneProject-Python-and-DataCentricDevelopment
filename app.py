@@ -69,24 +69,32 @@ def get_recipes():
             flash(f'Successful Deletion')
 
     # get food category data from db
-    categories1 = list(mongo.db.food_categories.find({}))
+    categories1 = list(mongo.db.food_categories.find())
+    display_category_query = list(mongo.db.food.find({'category': 'Breakfast'}))
+    print(len(display_category_query))
 
     # Build new list that only dispplays food_categories with listed recipes
     categories2 = [{}]
-    row2 = 0
+    row2 = 0 
     for row in range(len(categories1)):
 
         display_category_query = list(mongo.db.food.find({'category': categories1[row]['name']}))
-
+        
         # filter through user data to protect against html injections
         if len(display_category_query) > 0:
             categories2[row2]['_id'] = categories1[row]['_id']
             categories2[row2]['name'] = filter_data(categories1[row]['name'])
             categories2[row2]['img_url'] = filter_data(categories1[row]['img_url'])
-            row2 +=1
+            if categories2[row2 - 1]['_id'] != categories1[row]['_id']:
+                row2 +=1
+            else:
+                # increments if previous category is not the same one
+                print(row2)
+                continue
+                
         print()
         print(categories2)
-
+            #categories2 = categories2
 
     return render_template('recipes.html', categories1 = categories1, categories2 = categories2)
 

@@ -3,7 +3,7 @@
 <main class="add-recipe-wrapper">
     <div class="row container">
         <h2 class="center-align pink-text text-darken-4">Add A Recipe</h2>
-        <form id="recipe-form" action="{{ url_for('add_recipe') }}" method="POST">
+        <form id="add-recipe-form" action="{{ url_for('add_recipe') }}" method="POST">
             <div class="row">
                 <div class="col s12 m6">
                     <label for="recipe_name">Recipe Name</label>
@@ -32,11 +32,11 @@
             <div class="row">
                 <div class="col s12 m6">
                     <label for="prep_time">Prep Time (minutes)</label>
-                    <input class="validate" type="number" id="prep_time" name="prep_time" required>
+                    <input class="validate" type="number" id="prep_time" name="prep_time" min="0" required>
                 </div>
                 <div class="col s12 m6">
                     <label for="cook_time">Cook Time (minutes)</label>
-                    <input class="validate" type="number" id="cook_time" name="cook_time" required>
+                    <input class="validate" type="number" id="cook_time" name="cook_time" min="0" required>
                 </div>
             </div>
             <div class="row"> 
