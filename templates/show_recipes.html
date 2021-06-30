@@ -3,19 +3,48 @@
 <main class="recipes-content">
     
     <section class="container row">
-        <h2>All The Recipes You Love</h2>
+        <h2 id="page-title" class="center-align pink-text text-darken-4">
+            All The Recipes You Love
+        </h2>
         {% for recipe in recipes %}
             <div class="col s6  m4 l3 ">
-                <div class="card small">
+                <div class="card medium">
                     <div class="card-image waves-effect waves-block waves-light">
-                    <img class="food-img" src="{{ recipe.image_url }}" alt="{{ recipe.name }}">
+                        <img class="food-img" src="{{ recipe.image_url }}" alt="{{ recipe.name }}">
                     </div>
                     <div class="card-content">
-                    <span class="card-title grey-text text-darken-4">{{ recipe.name }}</span>
-                    <p><a href="{# { url_for('') } #}">This is a link</a></p>
+                        <span class="card-title grey-text text-darken-4">{{ recipe.name }}</span>
+                        <p>
+                            <!-- Trigger for Edit food category modal -->
+                            <button class="btn-floating left btn-small waves-effect waves-light green darken-1 tooltipped modal-trigger" data-position="bottom" data-tooltip="Edit" data-target="edit{{ recipe.name }}"><i class="material-icons">create</i></button>
+                            <!-- Trigger for delete food category modal -->
+                            <button class="btn-floating right btn-small waves-effect waves-light red tooltipped modal-trigger" data-position="bottom" data-tooltip="Delete" data-target="delete{{ recipe.name }}"><i class="material-icons">delete</i></button>
+                        </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Structure for delete recipe -->
+            <div id="delete{{ recipe.name }}" class="modal bottom-sheet">
+                <div class="modal-content">
+                    <h4 class="center-align pink-text text-darken-4">Delete {{ recipe.name }} Category</h4>
+                    <div class="row">
+                        <form class="col s12" method="POST" action="{{ url_for('show_all_recipes') }}">    
+                            <input type="hidden" id="recipe_id" name="recipe_id" value="{{ recipe._id }}">
+                            <div class="row">
+                                <div class="col s4 offset-s4">
+                                    <button class="btn-large waves-effect waves-light green left" type="submit" name="delete-recipe">
+                                        Yes <i class="material-icons right">event_available</i>
+                                    </button>
+                                    <button class="btn-large waves-effect waves-light red right modal-close">
+                                        No <i class="material-icons right">event_busy</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- /End modal-->
         {% endfor %}
         
         

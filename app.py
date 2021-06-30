@@ -71,7 +71,6 @@ def get_recipes():
     # get food category data from db
     categories1 = list(mongo.db.food_categories.find())
     display_category_query = list(mongo.db.food.find({'category': 'Breakfast'}))
-    print(len(display_category_query))
 
     # Build new list that only dispplays food_categories with listed recipes
     categories2 = [{}]
@@ -99,15 +98,20 @@ def get_recipes():
     return render_template('recipes.html', categories1 = categories1, categories2 = categories2)
 
 
-@app.route('/recipes/list')
+@app.route('/recipes/list', methods=["GET", "POST"])
 def show_all_recipes():
+
+    if request.method == 'POST':
+        
+        # deletes selected recipe from db
+        if 'delete-recipe' in request.form.keys():
+
+            recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
+            mongo.db.food.delete_one(recipe_id)
+            flash('Recipe successfully deleted')
+
     recipes = list(mongo.db.food.find())
     return render_template('show_recipes.html', recipes=recipes)
-
-# @app.route('/recipes/list/<name>')
-# def recipe_details():
-#    pass
-
 
 @app.route('/add_recipe', methods=["GET", "POST"])
 def add_recipe():
@@ -125,24 +129,28 @@ def add_recipe():
         #recipe_prep = recipe_prep
      
         # create ingredients list
-        ingredients = request.form.get('ingredients').split(",")
+        # ingredients = request.form.get('ingredients').split("\n")
+        # print(ingredients)
         # filter out user input data for ingredients - protect against injections
         #list_of_ingredients = set(map(filter_data, ingredients)) 
 
-        recipe_name = request.form.get('recipe_name')
-        recipe_category = request.form.get('category')
-        recipe_author = request.form.get('author')
-        recipe_img_url = request.form.get('img_url')
-        created_at = datetime.now().strftime("%x")
+        # recipe_name = request.form.get('recipe_name')
+        # recipe_category = request.form.get('category')
+        # recipe_author = request.form.get('author')
+        # recipe_img_url = request.form.get('img_url')
+        # created_at = datetime.now().strftime("%x")
 
         recipe_details = {
-            'name': recipe_name,
-            'category': recipe_category,
-            'image_url': recipe_img_url,
-            'author': recipe_author,
-            'ingredients': ingredients,
+            'name': request.form.get('recipe_name'),
+            'category': request.form.get('category'),
+            'image_url': request.form.get('img_url'),
+            'author': request.form.get('author'),
+            'prep_time': request.form['prep_time'],
+            'cook_time': request.form['cook_time'],
+            'description': request.form['description'],
+            'ingredients': request.form.get('ingredients').split("\n"),
             'preparations': json.dumps(recipe_prep),
-            'created_at': created_at
+            'created_at': datetime.now().strftime("%x")
         }
 
         mongo.db.food.insert_one(recipe_details)
@@ -151,9 +159,23 @@ def add_recipe():
         flash("Recipe Successfully Added")
         
         #redirect to listed recipes
-        return redirect(url_for("show_all_recipe"))          
+        return redirect(url_for("show_all_recipes"))          
 
     return render_template('add_recipe.html', categories=categories)
+
+
+
+#@app.route('/recipes/<menu>/<product_page>')
+@app.route('/recipes/product')
+def recipe_details():
+    # menu, product_page
+    menu = 'Soup'
+    product_page = 'Feel Better Chicken Soup Recipe'
+    search_query = {'name': product_page, 'category': menu}
+    # get recipe data from db
+    recipe = list(mongo.db.food.find(search_query))
+    #print(recipe[0]['preparations'])
+    return render_template('product_page.html', recipe = recipe)
 
 
 def filter_data(input):
