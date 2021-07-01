@@ -8,7 +8,6 @@ from bson.objectid import ObjectId
 from re import search
 from markupsafe import escape
 from datetime import datetime
-import json
 if os.path.exists("env.py"):
     import env
 
@@ -67,13 +66,13 @@ def get_recipe_categories():
 
             category_id = {"_id": ObjectId(request.form.get('category_id'))}
             mongo.db.food_categories.delete_one(category_id)
-            flash(f'Successful Deletion')
+            flash(f'Successfully deleted category')
 
     # get food category data from db
     categories1 = list(mongo.db.food_categories.find())
     display_category_query = list(mongo.db.food.find({'category': 'Breakfast'}))
 
-    # Build new list that only dispplays food_categories with listed recipes
+    # Build new list that only displays food_categories with listed recipes
     categories2 = [{}]
     row2 = 0 
     for row in range(len(categories1)):
@@ -86,10 +85,9 @@ def get_recipe_categories():
             categories2[row2]['name'] = filter_data(categories1[row]['name'])
             categories2[row2]['img_url'] = filter_data(categories1[row]['img_url'])
             if categories2[row2 - 1]['_id'] != categories1[row]['_id']:
+                # increments row2 if previous category is not the same one
                 row2 +=1
             else:
-                # increments if previous category is not the same one
-                print(row2)
                 continue
                 
         print()
@@ -103,7 +101,6 @@ def get_recipe_categories():
 def show_all_recipes():
    
     if request.method == 'POST':
-        
         # deletes selected recipe from db
         if 'delete-recipe' in request.form.keys():
 
@@ -117,7 +114,6 @@ def show_all_recipes():
 
 @app.route('/add_recipe', methods=["GET", "POST"])
 def add_recipe():
-    categories = list(mongo.db.food_categories.find())
 
     # validate recipe form submitted
     if request.method == 'POST':
@@ -141,33 +137,62 @@ def add_recipe():
             'preparations': recipe_prep,
             'created_at': datetime.now().strftime("%x")
         }
-
+        # adds recipe to db
         mongo.db.food.insert_one(recipe_details)
-
         # user feedback - flash message
         flash("Recipe Successfully Added")
         
         #redirect to listed recipes
-        return redirect(url_for("show_all_recipes"))          
+        return redirect(url_for("show_all_recipes"))
 
+    # get food menu category from db
+    categories = list(mongo.db.food_categories.find())
     return render_template('add_recipe.html', categories=categories)
 
 
-#@app.route('/recipes/<menu>/<product_page>', methods=["GET", "POST"])
-@app.route(f'/recipes/product', methods=["GET", "POST"])
-def recipe_details():
+@app.route('/recipes/<menu>/<product_page>') 
+def recipe_details(menu, product_page):
+
+    search_query = {'name': product_page, 'category': menu}
+    # get recipe data from db
+    recipe = list(mongo.db.food.find(search_query))
+
+    return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
+
+
+
+
+@app.route('/recipes/<menu>/<product_page>/edit', methods=["GET", "POST"])
+def edit_recipe(menu, product_page):  
+    # validate form submitted
     if request.method == 'POST':
-        print('fuck u')
-        # edits recipe when user submits form
+
+        print() 
+        print(product_page)
+        print('fuck 1 u from Edit_recipt function')  
+        print() 
+        # executes if user clicks edit_recipe from product_page
+        if 'edit_selected' in request.form.keys():
+            # retrieve data from db
+            recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
+            recipe = list(mongo.db.food.find(recipe_id)) 
+            categories = list(mongo.db.food_categories.find())
+            
+            #print(recipe[0]['preparations'])
+            return render_template('edit_recipe.html', recipe = recipe, categories =  categories)
+
+        
+        # executes when user submits form to update recipe
         if 'edit-recipe' in request.form.keys():
-            print('fuck u 2')
+            print('fuck u 2 from edit-recipe -form submitting.....')
             #gets recipe preparation data
             recipe_prep = []
             for input in request.form:
                 if search("prep", input):
-                    prep_step = request.form[input]
+                    prep_step = filter_data(request.form[input])
                     recipe_prep.append(prep_step)
-            print('fuck u 3')
+
+            print('fuck u 3 recipe_prep array')
             recipe_info = {
                 'name': request.form.get('recipe_name'),
                 'category': request.form.get('category'),
@@ -180,59 +205,22 @@ def recipe_details():
                 'ingredients': request.form.get('ingredients').split("\n"),
                 'preparations': recipe_prep
             }
-            print('fuck u 4')
+            print('fuck u 4 recipe edit schema')
             recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
         
             # update recipe in db
-            #mongo.db.food.update_one(recipe_id, {'$set': recipe_info})
+            mongo.db.food.update_one(recipe_id, {'$set': recipe_info})
             # user feedback message
             flash(f'Successfully edited --> {recipe_info["name"]}')
-            #recipe = list(mongo.db.food.find(recipe_id))
-            print('fuck u 5')
-
-#   menu, product_page      return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
-
-    product_page = 'Secret Detox Drink Recipe'
-    # menu = 'Soup' 
-
-    search_query = {'name': product_page}
-    # get recipe data from db
-    recipe = list(mongo.db.food.find(search_query))
-    print(recipe)
-    print('fuck u Final')
-    return 'hello'
-
-#    return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
-
-
-
-
-@app.route('/recipes/<menu>/<product_page>/edit', methods=["GET", "POST"])
-def edit_recipe(menu, product_page):
-    
-
-    #recipe = list(mongo.db.food.find({"_id": ObjectId(request.form.get('recipe_id'))})
-    #print(recipe)   url_for('edit_recipe', menu = product.category, product_page = product.name, recipe_id = recipe._id)
-    # recipe_id = recipe_id
-    # recipe = list({"_id": ObjectId(recipe_id)})
-    # print(recipe)
-    if request.method == 'POST':
-
-        print() 
-        print(product_page)  
-        print() 
-        # executes if user clicks edit_recipe from product_page
-        if 'edit_selected' in request.form.keys():
-            # retrieve data from db
-            recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
-            recipe = list(mongo.db.food.find(recipe_id)) 
-            categories = list(mongo.db.food_categories.find())
             
-            #print(recipe[0]['preparations'])
-            return render_template('edit_recipe.html', recipe = recipe, categories =  categories)
+            recipe = list(mongo.db.food.find(recipe_id))
+            print('fuck u 5 form sent to DB')
+            menu = recipe[0]['category']
+            product_page = recipe[0]['name']
 
-    #return render_template('edit_recipe.html', recipe = recipe, filter_data = filter_data)
-    return 'hi'
+            # redirect to product_page.html after form submission
+            return redirect(url_for("recipe_details", menu=menu, product_page=product_page)) 
+
 
 def filter_data(input):
     '''Trim white space and Protect against injection attacks'''

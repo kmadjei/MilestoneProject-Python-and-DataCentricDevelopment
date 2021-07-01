@@ -4,7 +4,7 @@
    {%  for product in recipe %}
     <div class="row container">
         <h2 id="page-title" class="center-align pink-text text-darken-4">Edit Recipe</h2>
-        <form id="edit-recipe-form" action="{{ url_for('recipe_details', menu = product.category, product_page = product.name) }}" method="POST">
+        <form id="edit-recipe-form" action="{{ url_for('edit_recipe', menu = product.category, product_page = product.name) }}" method="POST">
             <div class="row">
                 <div class="col s12 m6">
                     <label for="recipe_name">Recipe Name</label>
@@ -13,7 +13,7 @@
                 <div class="col s12 m6">
                     <label for="category">Category</label>
                     <select class="browser-default" id="category"  name="category" required>
-                        <option value="{{ product.category }}" disabled selected>{{ product.category }}</option>
+                        <option value="{{ product.category }}" selected>{{ product.category }}</option>
                         {% for category in categories %}
                             <option value="{{ category.name }}">{{ category.name }}</option>
                         {% endfor %}
