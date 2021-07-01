@@ -9,17 +9,16 @@
         {% for recipe in recipes %}
             <div class="col s6  m4 l3 ">
                 <div class="card medium">
-                    <div class="card-image waves-effect waves-block waves-light">
+                    <div class="card-image">
                         <img class="food-img" src="{{ recipe.image_url }}" alt="{{ recipe.name }}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4">{{ recipe.name }}</span>
-                        <p>
-                            <!-- Trigger for Edit food category modal -->
-                            <button class="btn-floating left btn-small waves-effect waves-light green darken-1 tooltipped modal-trigger" data-position="bottom" data-tooltip="Edit" data-target="edit{{ recipe.name }}"><i class="material-icons">create</i></button>
-                            <!-- Trigger for delete food category modal -->
-                            <button class="btn-floating right btn-small waves-effect waves-light red tooltipped modal-trigger" data-position="bottom" data-tooltip="Delete" data-target="delete{{ recipe.name }}"><i class="material-icons">delete</i></button>
-                        </p>
+                       <span id="recipe-card-name" class="center-align" >{{ recipe.name }}</span>
+                       <div class="card-action">
+                            <a class="waves-effect waves-light btn-small green darken-1" href="{{ url_for('recipe_details', menu = recipe.category, product_page = recipe.name ) }}"><i class="material-icons right">arrow_forward</i>View</a>
+                            <!--  waves-effect waves-block waves-light Trigger for delete food category modal --><br><br>
+                            <a class="waves-effect waves-light btn-small red modal-trigger"  data-target="delete{{ recipe.name }}"><i class="material-icons right">delete</i>Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>

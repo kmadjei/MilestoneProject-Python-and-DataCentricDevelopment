@@ -1,6 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
 <main class="product-content">
+    <section class="row container">
+        {% for product in recipe %}
+            <div class="col s12 m10 offset-m1">
+                <h2 id="page-title" class="center-align pink-text text-darken-4">
+                   {{ filter_data(product.name) }} 
+                </h2>
+                <div id="publication">
+                    <span class="author">by {{ filter_data(product.author) }} -- {{ product.created_at }}</span> 
+                </div>
+            </div>
+            <div class="col s12 m10 offset-m1">
+                <img class="responsive-img" src="{{ filter_data(product.image_url) }}" alt="{{ filter_data(product.name) }} image">
+            </div>
+            <div class="col s12 m10 offset-m1">
+                <p id="product-description" class="center-align flow-text">
+                    {% if product.description %}
+                    {{ filter_data(product.description) }}
+                    {% endif %}
+                </p>
+            </div>
+            <!-- Recipe details -->
+            <div class="col s12 m10 offset-m1">
+                <div class="card #546e7a blue-grey darken-2">
+                  <div class="card-content white-text">
+                    <span class="stats"><b>Yield: </b>Makes {{ product.servings }} servings</span>
+                    <span class="stats"><b>Prep Time: </b>{{ product.prep_time }} minutes</span>
+                    <span class="stats"><b>Cook Time: </b>{{ product.cook_time }} minutes</span>
+                    <hr>
+                    <p>
+                        <ul id="product-ingredients">
+                            <h4>Ingredients</h4>
+                            {% for ingredient in product.ingredients %}
+                            <li>--> {{ filter_data(ingredient) }}</li>
+                            {% if loop.index != loop.length %} <br> {% endif %}
+                            {% endfor %}
+                        </ul>    
+                    </p>
+                    <hr>
+                    <p>
+                        <ul id="product-instructions">
+                            <h4>Instructions</h4>
+                            {% for instruction in product.preparations %}
+                                {% if loop.index == 1 %} 
+                                    {{ continue }}
+                                {% else %}
+                                    <li>{{ filter_data(instruction) }}</li>
+                                    {% if loop.index != loop.length %} <br>  {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul> 
+                    </p>
+                  </div>
+                    <form class="card-action" method="POST" action="{{ url_for('edit_recipe', menu = product.category, product_page = product.name) }}">
+                        <input type="hidden" name="recipe_id" id="recipe_id" value="{{ product._id }}">
+                        <button class="waves-effect waves-light btn-large green darken-1" type="submit" name="edit_selected"><i class="material-icons right">create</i>Edit</button>
+                    </form>
+                </div>
+            </div>
 
+        {% endfor %}
+    </section>
 </main>
 {% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="add-recipe-wrapper">
+   {%  for product in recipe %}
+    <div class="row container">
+        <h2 id="page-title" class="center-align pink-text text-darken-4">Edit Recipe</h2>
+        <form id="edit-recipe-form" action="{{ url_for('recipe_details', menu = product.category, product_page = product.name) }}" method="POST">
+            <div class="row">
+                <div class="col s12 m6">
+                    <label for="recipe_name">Recipe Name</label>
+                    <input class="validate" type="text" id="recipe_name" name="recipe_name" value="{{ product.name }}" required>
+                </div>
+                <div class="col s12 m6">
+                    <label for="category">Category</label>
+                    <select class="browser-default" id="category"  name="category" required>
+                        <option value="{{ product.category }}" disabled selected>{{ product.category }}</option>
+                        {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <label for="img_url">Image URL</label>
+                    <input class="validate" type="text" id="img_url" name="img_url" value="{{ product.image_url }}" required>
+                </div>
+                <div class="col s12 m6">
+                    <label for="author">Author</label>
+                    <input class="validate" type="text" id="author" name="author" value="{{ product.author }}" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <label for="prep_time">Prep Time (minutes)</label>
+                    <input class="validate" type="number" id="prep_time" name="prep_time" min="0" value="{{ product.prep_time }}" required>
+                </div>
+                <div class="col s12 m6">
+                    <label for="cook_time">Cook Time (minutes)</label>
+                    <input class="validate" type="number" id="cook_time" name="cook_time" min="0" value="{{ product.cook_time }}" required>
+                </div>
+            </div>
+
+            <div class="row"> 
+                <div class="col s12">
+                    <label for="servings">Yield (quantity of servings)<span></span></label>
+                    <input class="validate" type="number" id="servings" name="servings" min="1" value="{{ product.servings }}" required>
+                </div>
+                <div class="col s12">
+                    <label for="description">Description (optional)<span></span></label>
+                    <textarea id="description" name="description" class="materialize-textarea">{{ product.description }}</textarea>
+                </div>
+                <div class="col s12">
+                    <label for="ingredients">Ingredients (Separate each ingredient by line with the "enter" key) <span></span></label>
+                    <textarea id="ingredients" name="ingredients" class="validate materialize-textarea" required>
+{% for product in product.ingredients %}
+{{- product }}
+{% endfor %} 
+                    </textarea>
+                </div>
+
+                <div class="col s12">
+                    <label for="prep">Preparation steps (Add new lines for each step)</label>
+                    <a id="add_prep_step" class="btn-floating btn-small waves-effect green tooltipped" data-position="top" data-tooltip="Add another step"><i class="material-icons">add</i></a>
+                    
+                    {% for instruction in product.preparations %}
+                        {% if loop.index == 1 %} 
+                            {{ continue }}
+                        {% elif loop.index == 2 %}
+                            <textarea  id="prep" name="prep" class="validate materialize-textarea" required>
+                                {{ instruction }}
+                            </textarea>
+                        {% else %}
+                            <textarea  id="prep{{ loop.index }}" name="prep{{ loop.index }}" class="validate materialize-textarea" required>
+                                {{ instruction }}
+                            </textarea>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <input type="hidden" name="recipe_id" value="{{ product._id }}">
+            <button class="btn waves-effect waves-light yellow darken-4  pulse" type="submit" name="edit-recipe">Submit
+                <i class="material-icons right">send</i>
+            </button>
+                    
+        </form>
+    </div>
+    {%  endfor %}
+</main>
+{% endblock %}

@@ -43,6 +43,13 @@ nav #logo {
     font-size: 20px;
 }
 
+/* Styling for recipe.html */
+#recipe-card-name {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
 /* Styling for recipes page */
 .recipes-content .food-img {
     height: 180px;
@@ -58,6 +65,46 @@ nav #logo {
 }
 #recipe-form button {
     margin-right: 100px;
+}
+
+/* Styling for product_page */
+#page-title {
+    font-size: 45px;
+    font-weight: 700;
+}
+.product-content #publication{
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    color: #455a64;
+    font-size: 20px;
+    font-weight: 600;
+}
+#publication .author{
+    padding-right: 6px;
+    
+}
+#publication .date{
+    padding-left: 5px;
+    /* border-left: lpx solid #455a64; */
+}
+.product-content hr {
+    border: 3px solid #fff;
+}
+#product-ingredients h4, #product-instructions h4{
+    text-transform: uppercase;
+}
+#product-ingredients li{
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+.product-content .stats{
+    display: block;
+}
+.product-content .stats b{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 18px;
 }
 
 /* styling for footer */

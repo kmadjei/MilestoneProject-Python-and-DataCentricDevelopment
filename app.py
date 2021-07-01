@@ -32,8 +32,9 @@ def home():
     return render_template('home.html')
 
 
+
 @app.route('/recipes', methods=["GET", "POST"])
-def get_recipes():
+def get_recipe_categories():
 
     # form submission
     if request.method == 'POST':
@@ -100,7 +101,7 @@ def get_recipes():
 
 @app.route('/recipes/list', methods=["GET", "POST"])
 def show_all_recipes():
-
+   
     if request.method == 'POST':
         
         # deletes selected recipe from db
@@ -108,10 +109,11 @@ def show_all_recipes():
 
             recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
             mongo.db.food.delete_one(recipe_id)
-            flash('Recipe successfully deleted')
+            flash('The recipe has been successfully deleted')
 
     recipes = list(mongo.db.food.find())
     return render_template('show_recipes.html', recipes=recipes)
+
 
 @app.route('/add_recipe', methods=["GET", "POST"])
 def add_recipe():
@@ -125,20 +127,6 @@ def add_recipe():
             if search("prep", input):
                 prep_step = request.form[input]
                 recipe_prep.append(prep_step)
-        # convert to a set element
-        #recipe_prep = recipe_prep
-     
-        # create ingredients list
-        # ingredients = request.form.get('ingredients').split("\n")
-        # print(ingredients)
-        # filter out user input data for ingredients - protect against injections
-        #list_of_ingredients = set(map(filter_data, ingredients)) 
-
-        # recipe_name = request.form.get('recipe_name')
-        # recipe_category = request.form.get('category')
-        # recipe_author = request.form.get('author')
-        # recipe_img_url = request.form.get('img_url')
-        # created_at = datetime.now().strftime("%x")
 
         recipe_details = {
             'name': request.form.get('recipe_name'),
@@ -147,9 +135,10 @@ def add_recipe():
             'author': request.form.get('author'),
             'prep_time': request.form['prep_time'],
             'cook_time': request.form['cook_time'],
+            'servings': request.form['servings'],
             'description': request.form['description'],
             'ingredients': request.form.get('ingredients').split("\n"),
-            'preparations': json.dumps(recipe_prep),
+            'preparations': recipe_prep,
             'created_at': datetime.now().strftime("%x")
         }
 
@@ -164,19 +153,86 @@ def add_recipe():
     return render_template('add_recipe.html', categories=categories)
 
 
-
-#@app.route('/recipes/<menu>/<product_page>')
-@app.route('/recipes/product')
+#@app.route('/recipes/<menu>/<product_page>', methods=["GET", "POST"])
+@app.route(f'/recipes/product', methods=["GET", "POST"])
 def recipe_details():
-    # menu, product_page
-    menu = 'Soup'
-    product_page = 'Feel Better Chicken Soup Recipe'
-    search_query = {'name': product_page, 'category': menu}
+    if request.method == 'POST':
+        print('fuck u')
+        # edits recipe when user submits form
+        if 'edit-recipe' in request.form.keys():
+            print('fuck u 2')
+            #gets recipe preparation data
+            recipe_prep = []
+            for input in request.form:
+                if search("prep", input):
+                    prep_step = request.form[input]
+                    recipe_prep.append(prep_step)
+            print('fuck u 3')
+            recipe_info = {
+                'name': request.form.get('recipe_name'),
+                'category': request.form.get('category'),
+                'image_url': request.form.get('img_url'),
+                'author': request.form.get('author'),
+                'prep_time': request.form['prep_time'],
+                'cook_time': request.form['cook_time'],
+                'servings': request.form['servings'],
+                'description': request.form['description'],
+                'ingredients': request.form.get('ingredients').split("\n"),
+                'preparations': recipe_prep
+            }
+            print('fuck u 4')
+            recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
+        
+            # update recipe in db
+            #mongo.db.food.update_one(recipe_id, {'$set': recipe_info})
+            # user feedback message
+            flash(f'Successfully edited --> {recipe_info["name"]}')
+            #recipe = list(mongo.db.food.find(recipe_id))
+            print('fuck u 5')
+
+#   menu, product_page      return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
+
+    product_page = 'Secret Detox Drink Recipe'
+    # menu = 'Soup' 
+
+    search_query = {'name': product_page}
     # get recipe data from db
     recipe = list(mongo.db.food.find(search_query))
-    #print(recipe[0]['preparations'])
-    return render_template('product_page.html', recipe = recipe)
+    print(recipe)
+    print('fuck u Final')
+    return 'hello'
 
+#    return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
+
+
+
+
+@app.route('/recipes/<menu>/<product_page>/edit', methods=["GET", "POST"])
+def edit_recipe(menu, product_page):
+    
+
+    #recipe = list(mongo.db.food.find({"_id": ObjectId(request.form.get('recipe_id'))})
+    #print(recipe)   url_for('edit_recipe', menu = product.category, product_page = product.name, recipe_id = recipe._id)
+    # recipe_id = recipe_id
+    # recipe = list({"_id": ObjectId(recipe_id)})
+    # print(recipe)
+    if request.method == 'POST':
+
+        print() 
+        print(product_page)  
+        print() 
+        # executes if user clicks edit_recipe from product_page
+        if 'edit_selected' in request.form.keys():
+            # retrieve data from db
+            recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
+            recipe = list(mongo.db.food.find(recipe_id)) 
+            categories = list(mongo.db.food_categories.find())
+            
+            #print(recipe[0]['preparations'])
+            return render_template('edit_recipe.html', recipe = recipe, categories =  categories)
+
+    #return render_template('edit_recipe.html', recipe = recipe, filter_data = filter_data)
+    return 'hi'
 
 def filter_data(input):
     '''Trim white space and Protect against injection attacks'''

@@ -14,7 +14,7 @@
         <div class="modal-content">
             <h4 class="center-align pink-text text-darken-4">Add A New Recipe Category</h4>
             <div class="row">
-                <form class="col s12" method="POST" action="{{ url_for('get_recipes') }}">    
+                <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="recipe-category" name="recipe-category" type="text" class="validate" required>
@@ -64,7 +64,7 @@
                 <div class="modal-content">
                     <h4 class="center-align pink-text text-darken-4">Edit {{ category.name }} Category</h4>
                     <div class="row">
-                        <form class="col s12" method="POST" action="{{ url_for('get_recipes') }}">    
+                        <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="recipe-category" name="recipe-category" type="text" value="{{ category.name }}" class="validate" required>
@@ -94,7 +94,7 @@
                 <div class="modal-content">
                     <h4 class="center-align pink-text text-darken-4">Delete {{ category.name }} Category</h4>
                     <div class="row">
-                        <form class="col s12" method="POST" action="{{ url_for('get_recipes') }}">    
+                        <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                             <input type="hidden" id="category_id" name="category_id" value="{{ category._id }}">
                             <div class="row">
                                 <div class="col s4 offset-s4">
