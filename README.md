@@ -3,10 +3,15 @@
 
 # Food Lovers - Milestone Project - Backend Development
 
-One or two paragraphs providing an overview of your project.
+Hello Everyone, 
 
-Essentially, this part is your sales pitch.
-👉 
+I welcome you all to my lovely Milestone Project - where I show you the power of Python and Data driven development using the flask framework. This project is an online cookbook web application where fellow food enthusiast can signup, add recipes of their own, and share with the rest of the community.
+
+
+Check  the link below for a live preview:
+
+👉[Quick Preview](https://python-and-datacentric-project.herokuapp.com/)
+
  
 ## UX
  
