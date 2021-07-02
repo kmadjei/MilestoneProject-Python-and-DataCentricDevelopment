@@ -225,12 +225,13 @@ def filter_data(input):
     input = escape(input.strip())
     return input
 
+
+# The following code contains snippets from  CODE Institute Backend Development module
+# source - https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/app.py
+
 ############### TEST FROM HERE ###############
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    # sample code example from  CODE Institute Backend Development module
-    # source - https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/02-UserAuthenticationAndAuthorization/03-register_functionality/app.py
-    
     # validate register form
     if request.method == 'POST':
         # check if username exists in db already
@@ -250,7 +251,9 @@ def register():
 
         # create session cookie for registered user
         session['user'] = request.form.get('username').lower()
-        flash('Congrattulations. You Registered Successfully!')
+        flash('Congratulations. You Registered Successfully!')
+        # redirects to profile page 
+        return redirect(url_for('profile', username=session['user']))
 
     return render_template('register.html')
 
@@ -270,6 +273,8 @@ def login():
             ):
                 session['user'] = request.form.get('username').lower()
                 flash(f'Welcome, {session["user"]}')
+                # redirects to profile page 
+                return redirect(url_for('profile', username=session['user']))
             else:
                 # execute when password entered does not match
                 flash('Incorrect Username and/or Password')
@@ -281,6 +286,16 @@ def login():
             return redirect(url_for('login'))
         
     return render_template('login.html')
+
+
+@app.route('/user_profile/<username>', methods=['GET', 'POST'])
+def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template('profile.html', username=username)
+
+
 
 # runs the flask application as the main module
 if __name__ == "__main__":
