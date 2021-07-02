@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %} 
+<main class="register-content">
+
+    <div class="row container">
+        <h2 id="page-title" class="center-align pink-text text-darken-4">Register and Join The Food Lovers Tribe!</h2>
+        <form class="col s12" method="POST" action="{{ url_for('register') }}">
+            <div class="card-panel">
+                <!-- username field -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix yellow-text text-darken-4">account_circle</i>
+                        <input id="username" name="username" type="text" class="validate" required>
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <!-- password field -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix yellow-text text-darken-4">security</i>
+                        <input id="password" name="password" type="password" class="validate" required>
+                        <label for="username">Password</label>
+                    </div>
+                </div>
+                <!-- register button -->
+                <div class="row">
+                    <button type="submit" class="col s12 waves-effect waves-light btn-large yellow darken-4" >
+                        Register
+                        <i class="material-icons right">check_box</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+ 
+</main>
+{% endblock %}

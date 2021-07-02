@@ -20,7 +20,6 @@ nav #logo {
     */
     background-image: url("../images/food-bg.jpg");
     height: 100vh;
-    /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -86,7 +85,6 @@ nav #logo {
 }
 #publication .date{
     padding-left: 5px;
-    /* border-left: lpx solid #455a64; */
 }
 .product-content hr {
     border: 3px solid #fff;

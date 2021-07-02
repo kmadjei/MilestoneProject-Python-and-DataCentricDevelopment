@@ -160,8 +160,6 @@ def recipe_details(menu, product_page):
     return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
 
 
-
-
 @app.route('/recipes/<menu>/<product_page>/edit', methods=["GET", "POST"])
 def edit_recipe(menu, product_page):  
     # validate form submitted
@@ -228,7 +226,9 @@ def filter_data(input):
     return input
 
 
-
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    return render_template('register.html')
 
 
 # runs the flask application as the main module
