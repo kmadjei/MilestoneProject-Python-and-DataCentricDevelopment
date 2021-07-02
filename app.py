@@ -213,7 +213,6 @@ def filter_data(input):
 # The following code contains snippets from  CODE Institute Backend Development module
 # source - https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/app.py
 
-############### TEST FROM HERE ###############
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     # validate register form
@@ -275,9 +274,10 @@ def login():
 @app.route('/user_profile/<username>', methods=['GET', 'POST'])
 def profile(username):
     # grab the session user's username from the db
-    username = mongo.db.users.find_one(
-        {'username': session['user']})['username']
-    return render_template('profile.html', username=username)
+    username = mongo.db.users.find_one({'username': session['user']})['username']
+    my_recipes = list(mongo.db.food.find({'author': session['user']}))
+    print(my_recipes)
+    return render_template('profile.html', username=username, my_recipes=my_recipes)
 
 
 @app.route('/logout')
