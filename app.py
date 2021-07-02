@@ -5,6 +5,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 from re import search
 from markupsafe import escape
 from datetime import datetime
@@ -29,7 +30,6 @@ mongo = PyMongo(app)
 @app.route("/")
 def home():
     return render_template('home.html')
-
 
 
 @app.route('/recipes', methods=["GET", "POST"])
@@ -97,7 +97,7 @@ def get_recipe_categories():
     return render_template('recipes.html', categories1 = categories1, categories2 = categories2)
 
 
-@app.route('/recipes/list', methods=["GET", "POST"])
+@app.route('/recipes/list', methods=['GET', 'POST'])
 def show_all_recipes():
    
     if request.method == 'POST':
@@ -112,7 +112,7 @@ def show_all_recipes():
     return render_template('show_recipes.html', recipes=recipes)
 
 
-@app.route('/add_recipe', methods=["GET", "POST"])
+@app.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
 
     # validate recipe form submitted
@@ -160,7 +160,7 @@ def recipe_details(menu, product_page):
     return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
 
 
-@app.route('/recipes/<menu>/<product_page>/edit', methods=["GET", "POST"])
+@app.route('/recipes/<menu>/<product_page>/edit', methods=['GET', 'POST'])
 def edit_recipe(menu, product_page):  
     # validate form submitted
     if request.method == 'POST':
@@ -225,10 +225,35 @@ def filter_data(input):
     input = escape(input.strip())
     return input
 
-
-@app.route('/register', methods=["GET", "POST"])
+############### TEST FROM HERE ###############
+@app.route('/register', methods=['GET', 'POST'])
 def register():
+    # sample code example from  CODE Institute Backend Development module
+    # source - https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/02-UserAuthenticationAndAuthorization/03-register_functionality/app.py
+    
+    # validate register form
+    if request.method == 'POST':
+        # check if username exists in db already
+        user_check_query = {'username': request.form.get('username').lower()})
+        existing_user = mongo.db.users.find_one(user_check_query)
+
+        if existing_user:
+            flash('Sorry, the username already exists. Try again!')
+            return redirect(url_for("register"))
+        
+        # register new user in db
+        register = {
+            'username': request.form.get('username').lower(),
+            'password': generate_password_hash(request.form.get('password'))
+        }
+        mongo.db.users.insert_one(register)
+
+        # create session cookie for registered user
+        session['user'] = request.form.get('username').lower()
+        flash('Congrattulations. You Registered Successfully!')
+
     return render_template('register.html')
+
 
 
 # runs the flask application as the main module
