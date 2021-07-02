@@ -290,11 +290,18 @@ def login():
 
 @app.route('/user_profile/<username>', methods=['GET', 'POST'])
 def profile(username):
-    # grab the session user's username from db
+    # grab the session user's username from the db
     username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+        {'username': session['user']})['username']
     return render_template('profile.html', username=username)
 
+
+@app.route('/logout')
+def logout():
+    # remove user from session cookie
+    flash('You have been logged out')
+    session.pop('user')
+    return redirect(url_for('login'))
 
 
 # runs the flask application as the main module

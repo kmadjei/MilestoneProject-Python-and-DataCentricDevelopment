@@ -21,7 +21,15 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="{{ url_for('home') }}">Home</a></li>
           <li><a href="{{ url_for('get_recipe_categories') }}">Recipes</a></li>
-          <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li> 
+          <!-- renders if user is logged in -->
+          {% if session.user %}
+            <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li> 
+            <li><a href="{{ url_for('profile', username=session['user']) }}">My Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          {% else %}
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
