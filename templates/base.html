@@ -12,7 +12,6 @@
     <title>Food Lovers!</title>
 </head>
 <body>
-  <!-- Remember to write jquery for mobile nav -->
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper red darken-4">
@@ -27,6 +26,7 @@
             <li><a href="{{ url_for('profile', username=session['user']) }}">My Profile</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
           {% else %}
+          <!-- render's when user logs out -->
             <li><a href="{{ url_for('register') }}">Register</a></li>
             <li><a href="{{ url_for('login') }}">Log In</a></li>
           {% endif %}
@@ -34,13 +34,22 @@
       </div>
     </nav>
 
-  <!-- Mobile Side Navigation -->
-  <ul class="sidenav" id="mobile-demo">
-    <li><h4 class="center-align red-text text-darken-4">Food Lovers</h4></li>
-    <li><a href="{{ url_for('home') }}">Home</a></li>
-    <li><a href="{{ url_for('get_recipe_categories') }}">Recipes</a></li>
-    <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
-  </ul>
+    <!-- Mobile Side Navigation -->
+    <ul class="sidenav" id="mobile-demo">
+      <li><h4 class="center-align red-text text-darken-4">Food Lovers</h4></li>
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('get_recipe_categories') }}">Recipes</a></li>
+      <!-- renders if user is logged in -->
+      {% if session.user %}
+        <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li> 
+        <li><a href="{{ url_for('profile', username=session['user']) }}">My Profile</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      {% else %}
+      <!-- render's when user logs out -->
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('login') }}">Log In</a></li>
+      {% endif %}
+    </ul>
            
   </header>
   

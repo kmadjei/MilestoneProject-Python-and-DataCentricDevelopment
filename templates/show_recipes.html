@@ -15,9 +15,12 @@
                     <div class="card-content">
                        <span id="recipe-card-name" class="center-align" >{{ recipe.name }}</span>
                        <div class="card-action">
-                            <a class="waves-effect waves-light btn-small green darken-1" href="{{ url_for('recipe_details', menu = recipe.category, product_page = recipe.name ) }}"><i class="material-icons right">arrow_forward</i>View</a>
-                            <!--  waves-effect waves-block waves-light Trigger for delete food category modal --><br><br>
-                            <a class="waves-effect waves-light btn-small red modal-trigger"  data-target="delete{{ recipe.name }}"><i class="material-icons right">delete</i>Delete</a>
+                            <a class="col s12 waves-effect waves-light btn-small green darken-1" href="{{ url_for('recipe_details', menu = recipe.category, product_page = recipe.name ) }}"><i class="material-icons right">arrow_forward</i>View</a>
+
+                            <!-- accessible for user authors only -->
+                            {% if session.user == recipe.author %}
+                                <a class="col s12 waves-effect waves-light btn-small red modal-trigger"  data-target="delete{{ recipe.name }}"><i class="material-icons right">delete</i>Delete</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

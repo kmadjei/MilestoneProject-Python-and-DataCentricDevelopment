@@ -4,8 +4,12 @@
 
     <div class="container row">
         <h2 id="page-title" class="center-align pink-text text-darken-4">Recipe Menus</h2>
-        <!-- Trigger for Add menu category modal -->
-        <button class="left center-alignwaves-effect waves-light btn-large yellow darken-4 modal-trigger" data-target="add-category"><i class="material-icons left">add_box</i>Add A Menu</button>
+        <!-- accessible to users only -->
+        {% if session.user %}
+            <!-- Trigger for Add menu category modal -->
+            <button class="left center-alignwaves-effect waves-light btn-large yellow darken-4 modal-trigger" data-target="add-category"><i class="material-icons left">add_box</i>Add A Menu</button>
+        {% endif %}
+        
         <a class="right center-align waves-effect waves-light btn-large yellow darken-4" href="{{ url_for('show_all_recipes') }}"><i class="material-icons right">assignment</i>View All Recipes</a>
     </div>
 
@@ -17,13 +21,17 @@
                 <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="recipe-category" name="recipe-category" type="text" class="validate" required>
+                            <input id="recipe-category" name="recipe-category" type="text" class="validate" minlength="3" required>
                             <label for="recipe-category">Recipe Category</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="recipe-author" name="recipe-author" type="text" class="validate" minlength="3" required>
+                            <label for="recipe-author">Recipe Author</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="image-url" name="image-url" type="text" class="validate" required>
+                            <input id="image-url" name="image-url" type="text" class="validate" minlength="3" required>
                             <label for="image-url">Image URL Address</label>
                         </div>
                     </div>
@@ -40,21 +48,30 @@
         
     </div>
     
-    <section class="container row">        
-        {% for category in categories1 %}
+    <section class="container row">     
+        
+        
+
+        {% for category in categories %}
             <div class="col s12  m4 l3 ">
                 <div class="card small">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="food-img" src="{{ category.img_url }}" alt="{{ category.name }}">
                     </div>
                     <div class="card-content">
-                        <span class="center-align card-title grey-text text-darken-4">{{ category.name }}</span>
-                        <p>
-                            <!-- Trigger for Edit food category modal -->
-                            <button class="btn-floating left btn-small waves-effect waves-light green darken-1 tooltipped modal-trigger" data-position="bottom" data-tooltip="Edit" data-target="edit{{ category.name }}"><i class="material-icons">create</i></button>
-                            <!-- Trigger for delete food category modal -->
-                            <button class="btn-floating right btn-small waves-effect waves-light red tooltipped modal-trigger" data-position="bottom" data-tooltip="Delete" data-target="delete{{ category.name }}"><i class="material-icons">delete</i></button>
-                        </p>
+                        <span class="center-align card-title grey-text text-darken-4">
+                            <a href="{{ url_for('view_menu', menu=category.name) }}" class="yellow-text text-darken-4">{{ category.name }}</a> 
+                        </span> 
+
+                        <!-- Accessible for author users only -->
+                        {% if session.user == category.author %}
+                            <p class="card-action">
+                                <!-- Trigger for Edit food category modal -->
+                                <button class="btn-floating left btn-small waves-effect waves-light green darken-1 tooltipped modal-trigger" data-position="bottom" data-tooltip="Edit" data-target="edit{{ category.name }}"><i class="material-icons">create</i></button>
+                                <!-- Trigger for delete food category modal -->
+                                <button class="btn-floating right btn-small waves-effect waves-light red tooltipped modal-trigger" data-position="bottom" data-tooltip="Delete" data-target="delete{{ category.name }}"><i class="material-icons">delete</i></button>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -64,13 +81,21 @@
                 <div class="modal-content">
                     <h4 class="center-align pink-text text-darken-4">Edit {{ category.name }} Category</h4>
                     <div class="row">
-                        <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
+                        <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}"> 
+                            <!-- recipe category -->   
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="recipe-category" name="recipe-category" type="text" value="{{ category.name }}" class="validate" required>
                                     <label for="recipe-category">Recipe Category</label>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="recipe-author" name="recipe-author" type="text" value="{{ category.author }}" class="validate" minlength="4" required>
+                                    <label for="recipe-author">Recipe Author</label>
+                                </div>
+                            </div>
+                            <!-- category image URL -->
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="image-url" name="image-url" type="text" value="{{ category.img_url }}" class="validate" required>
@@ -97,14 +122,14 @@
                         <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                             <input type="hidden" id="category_id" name="category_id" value="{{ category._id }}">
                             <div class="row">
-                                <div class="col s4 offset-s4">
-                                    <button class="btn-large waves-effect waves-light green left" type="submit" name="delete-category">
-                                        Yes <i class="material-icons right">event_available</i>
-                                    </button>
-                                    <button class="btn-large waves-effect waves-light red right modal-close">
-                                        No <i class="material-icons right">event_busy</i>
-                                    </button>
-                                </div>
+                            <div class="col s12 m6 offset-m3">
+                                <button class="btn-large waves-effect waves-light green left col s12 m6" type="submit" name="delete-category">
+                                    Yes <i class="material-icons right">event_available</i>
+                                </button>
+                                <button class="btn-large waves-effect waves-light red right col s12 m6 modal-close">
+                                    No <i class="material-icons right">event_busy</i>
+                                </button>
+                            </div>
                             </div>
                         </form>
                     </div>

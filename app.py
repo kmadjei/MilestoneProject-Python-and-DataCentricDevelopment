@@ -42,6 +42,7 @@ def get_recipe_categories():
         if 'add-category' in request.form.keys():        
             add_category = {
                 'name': request.form.get('recipe-category'),
+                'author': request.form.get('recipe-author'),
                 'img_url': request.form.get('image-url')
             }
 
@@ -53,6 +54,7 @@ def get_recipe_categories():
         if 'edit-category' in request.form.keys():        
             edit_category = {
                 'name': request.form.get('recipe-category'),
+                'author': request.form.get('recipe-author'),
                 'img_url': request.form.get('image-url')
             }
             category_id = {"_id": ObjectId(request.form.get('category_id'))}
@@ -69,32 +71,9 @@ def get_recipe_categories():
             flash(f'Successfully deleted category')
 
     # get food category data from db
-    categories1 = list(mongo.db.food_categories.find())
-    display_category_query = list(mongo.db.food.find({'category': 'Breakfast'}))
+    categories = list(mongo.db.food_categories.find())
 
-    # Build new list that only displays food_categories with listed recipes
-    categories2 = [{}]
-    row2 = 0 
-    for row in range(len(categories1)):
-
-        display_category_query = list(mongo.db.food.find({'category': categories1[row]['name']}))
-        
-        # filter through user data to protect against html injections
-        if len(display_category_query) > 0:
-            categories2[row2]['_id'] = categories1[row]['_id']
-            categories2[row2]['name'] = filter_data(categories1[row]['name'])
-            categories2[row2]['img_url'] = filter_data(categories1[row]['img_url'])
-            if categories2[row2 - 1]['_id'] != categories1[row]['_id']:
-                # increments row2 if previous category is not the same one
-                row2 +=1
-            else:
-                continue
-                
-        print()
-        print(categories2)
-            #categories2 = categories2
-
-    return render_template('recipes.html', categories1 = categories1, categories2 = categories2)
+    return render_template('recipes.html', categories = categories)
 
 
 @app.route('/recipes/list', methods=['GET', 'POST'])
@@ -149,6 +128,11 @@ def add_recipe():
     categories = list(mongo.db.food_categories.find())
     return render_template('add_recipe.html', categories=categories)
 
+
+@app.route('/recipes/<menu>') 
+def view_menu(menu):
+    recipes = list(mongo.db.food.find({'category': menu}))
+    return render_template('show_recipes.html', recipes=recipes)
 
 @app.route('/recipes/<menu>/<product_page>') 
 def recipe_details(menu, product_page):
