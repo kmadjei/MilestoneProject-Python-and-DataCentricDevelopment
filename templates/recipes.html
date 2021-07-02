@@ -64,6 +64,7 @@
                         </span> 
 
                         <!-- Accessible for author users only -->
+                        {% if session.user %}
                         {% if session.user == category.author %}
                             <p class="card-action">
                                 <!-- Trigger for Edit food category modal -->
@@ -71,6 +72,7 @@
                                 <!-- Trigger for delete food category modal -->
                                 <button class="btn-floating right btn-small waves-effect waves-light red tooltipped modal-trigger" data-position="bottom" data-tooltip="Delete" data-target="delete{{ category.name }}"><i class="material-icons">delete</i></button>
                             </p>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </div>
