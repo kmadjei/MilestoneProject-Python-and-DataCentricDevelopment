@@ -234,7 +234,7 @@ def register():
     # validate register form
     if request.method == 'POST':
         # check if username exists in db already
-        user_check_query = {'username': request.form.get('username').lower()})
+        user_check_query = {'username': request.form.get('username').lower()}
         existing_user = mongo.db.users.find_one(user_check_query)
 
         if existing_user:
@@ -255,6 +255,32 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # validate login form
+    if request.method == 'POST':
+        # check if username exists in db already
+        user_check_query = {'username': request.form.get('username').lower()}
+        existing_user = mongo.db.users.find_one(user_check_query)
+
+        if existing_user:
+            # validate login credentials
+            if check_password_hash(
+                existing_user['password'], request.form.get('password')
+            ):
+                session['user'] = request.form.get('username').lower()
+                flash(f'Welcome, {session["user"]}')
+            else:
+                # execute when password entered does not match
+                flash('Incorrect Username and/or Password')
+                return redirect(url_for('login'))
+
+        else:
+            # executes when username doesn't exist
+            flash('Incorrect Username and/or Password')
+            return redirect(url_for('login'))
+        
+    return render_template('login.html')
 
 # runs the flask application as the main module
 if __name__ == "__main__":
