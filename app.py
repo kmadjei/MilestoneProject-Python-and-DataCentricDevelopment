@@ -32,6 +32,7 @@ def home():
     return render_template('home.html')
 
 
+# views all recipe menu
 @app.route('/recipes', methods=["GET", "POST"])
 def get_recipe_categories():
 
@@ -76,6 +77,7 @@ def get_recipe_categories():
     return render_template('recipes.html', categories = categories)
 
 
+# views a list of all recipes
 @app.route('/recipes/list', methods=['GET', 'POST'])
 def show_all_recipes():
    
@@ -91,6 +93,7 @@ def show_all_recipes():
     return render_template('show_recipes.html', recipes=recipes)
 
 
+# renders add recipe form page
 @app.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
 
@@ -129,11 +132,13 @@ def add_recipe():
     return render_template('add_recipe.html', categories=categories)
 
 
+# renders html page with recipes under a specific menu
 @app.route('/recipes/<menu>') 
 def view_menu(menu):
     recipes = list(mongo.db.food.find({'category': menu}))
     return render_template('show_recipes.html', recipes=recipes, menu=menu)
 
+# renders product page for recipe
 @app.route('/recipes/<menu>/<product_page>') 
 def recipe_details(menu, product_page):
 
@@ -144,6 +149,7 @@ def recipe_details(menu, product_page):
     return render_template('product_page.html', recipe = recipe, filter_data = filter_data)
 
 
+# renders edit functionality for editing a recipe
 @app.route('/recipes/<menu>/<product_page>/edit', methods=['GET', 'POST'])
 def edit_recipe(menu, product_page):  
     # validate form submitted
@@ -209,6 +215,8 @@ def filter_data(input):
 # The following code contains snippets from  CODE Institute Backend Development module
 # source - https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/app.py
 
+
+# handles new user registration
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     # validate register form
@@ -237,6 +245,7 @@ def register():
     return render_template('register.html')
 
 
+# login functionality for user 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # validate login form
@@ -267,6 +276,7 @@ def login():
     return render_template('login.html')
 
 
+# renders profile page for user
 @app.route('/user_profile/<username>', methods=['GET', 'POST'])
 def profile(username):
     # grab the session user's username from the db
@@ -277,6 +287,7 @@ def profile(username):
     return render_template('profile.html', username=username, my_recipes=my_recipes)
 
 
+# logs the user out
 @app.route('/logout')
 def logout():
     # remove user from session cookie
