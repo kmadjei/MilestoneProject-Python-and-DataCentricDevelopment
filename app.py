@@ -132,7 +132,7 @@ def add_recipe():
 @app.route('/recipes/<menu>') 
 def view_menu(menu):
     recipes = list(mongo.db.food.find({'category': menu}))
-    return render_template('show_recipes.html', recipes=recipes)
+    return render_template('show_recipes.html', recipes=recipes, menu=menu)
 
 @app.route('/recipes/<menu>/<product_page>') 
 def recipe_details(menu, product_page):
@@ -166,7 +166,6 @@ def edit_recipe(menu, product_page):
         
         # executes when user submits form to update recipe
         if 'edit-recipe' in request.form.keys():
-            print('fuck u 2 from edit-recipe -form submitting.....')
             #gets recipe preparation data
             recipe_prep = []
             for input in request.form:
@@ -174,7 +173,6 @@ def edit_recipe(menu, product_page):
                     prep_step = filter_data(request.form[input])
                     recipe_prep.append(prep_step)
 
-            print('fuck u 3 recipe_prep array')
             recipe_info = {
                 'name': request.form.get('recipe_name'),
                 'category': request.form.get('category'),
@@ -187,7 +185,6 @@ def edit_recipe(menu, product_page):
                 'ingredients': request.form.get('ingredients').split("\n"),
                 'preparations': recipe_prep
             }
-            print('fuck u 4 recipe edit schema')
             recipe_id = {"_id": ObjectId(request.form.get('recipe_id'))}
         
             # update recipe in db
@@ -196,7 +193,6 @@ def edit_recipe(menu, product_page):
             flash(f'Successfully edited --> {recipe_info["name"]}')
             
             recipe = list(mongo.db.food.find(recipe_id))
-            print('fuck u 5 form sent to DB')
             menu = recipe[0]['category']
             product_page = recipe[0]['name']
 
@@ -275,7 +271,8 @@ def login():
 def profile(username):
     # grab the session user's username from the db
     username = mongo.db.users.find_one({'username': session['user']})['username']
-    my_recipes = list(mongo.db.food.find({'author': session['user']}))
+    my_recipes = list(mongo.db.food.find({'author': session['user']}).sort('created_at'))
+    print(session['user'])
     print(my_recipes)
     return render_template('profile.html', username=username, my_recipes=my_recipes)
 

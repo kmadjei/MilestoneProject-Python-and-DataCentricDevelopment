@@ -3,6 +3,7 @@ $(document).ready(function(){
     $(".sidenav").sidenav({edge: "right"});
     $('.tooltipped').tooltip();
     $('.modal').modal();
+    $('.collapsible').collapsible();
 
     // Adds new line for Preparation steps
     let step = 1;

@@ -25,7 +25,7 @@
                             <label for="recipe-category">Recipe Category</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="recipe-author" name="recipe-author" type="text" class="validate" minlength="3" required>
+                            <input id="recipe-author" name="recipe-author" type="text" class="validate" minlength="3" value="{{ session.user }}" required>
                             <label for="recipe-author">Recipe Author</label>
                         </div>
                     </div>
@@ -49,8 +49,6 @@
     </div>
     
     <section class="container row">     
-        
-        
 
         {% for category in categories %}
             <div class="col s12  m4 l3 ">
@@ -119,7 +117,7 @@
             <!-- Modal Structure for delete food category -->
             <div id="delete{{ category.name }}" class="modal bottom-sheet">
                 <div class="modal-content">
-                    <h4 class="center-align pink-text text-darken-4">Delete {{ category.name }} Category</h4>
+                    <h4 class="center-align pink-text text-darken-4 flow-text">Delete {{ category.name }} Category</h4>
                     <div class="row">
                         <form class="col s12" method="POST" action="{{ url_for('get_recipe_categories') }}">    
                             <input type="hidden" id="category_id" name="category_id" value="{{ category._id }}">

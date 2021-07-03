@@ -7,21 +7,46 @@
             <h2 id="page-title" class="center-align pink-text text-darken-4" >
                 {{ username }}'s Profile
             </h2>
-            <div class="card-panel">
-                <h2 id="page-title" class="center-align pink-text text-darken-4" >
-                    Information Coming soon ....!
-                </h2>
-                {% if my_recipes|length > 0 %}
-                    <ul class="collapsible">
+            {% if my_recipes|length > 0 %}
+            <!-- Renders when user has posted a recipe on the website -->
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header blue-grey darken-1 white-text">
+                            <div class="col s1">
+                                <i class="material-icons">arrow_drop_down</i>
+                            </div>
+                            <div class="col s11">
+                                <strong>My Recipes</strong>
+                                <span> -- quantity: {{ my_recipes|length }}</span>
+                            </div>
+                        </div>
                         {% for recipe in my_recipes %}
-                        <li></li>
+                        <div class="collapsible-body ">  
+                            {{ recipe.name }} -- Published: {{ recipe.created_at }}
+                            <a class="waves-effect waves-light btn-small green darken-1" href="{{ url_for('recipe_details', menu = recipe.category, product_page = recipe.name ) }}"><i class="material-icons right">arrow_forward</i>View</a>
+                        </div>
                         {% endfor %}
-                    </ul>
-                {% else %}
-                
-                    <h3 class="red-text text-darken-4 center-align">You currently have no recipes posted in your database</h3>
-                {% endif %}
-            </div>
+                    </li>  
+                </ul>
+                <div class="col s12">
+                    <a href="{{ url_for('add_recipe') }}" class="yellow-text text-darken-4 flow-text">Click here to post a recipe you love to share</a>
+                </div>
+                <div class="col s12">
+                    <a href="{{ url_for('show_all_recipes') }}" class="yellow-text text-darken-4 flow-text">Click here to find the perfect recipe to make for today.</a>
+                </div>
+            {% else %}
+            <!-- Renders on user profiles with no recipes posted -->
+                <div class="col s12">
+                    <h3 class="red-text text-darken-4 flow-text">You currently have no recipes posted in your database</h3>
+                </div>
+                <div class="col s12">
+                    <a href="{{ url_for('add_recipe') }}" class="yellow-text text-darken-4 flow-text">Click here to post a recipe you love to share</a>
+                </div>
+                <div class="col s12">
+                    <a href="{{ url_for('show_all_recipes') }}" class="yellow-text text-darken-4 flow-text">Click here to find the perfect recipe to make for today.</a>
+                </div>
+            {% endif %}
+            
         </div>
     </div>
  

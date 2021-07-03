@@ -6,6 +6,26 @@
         <h2 id="page-title" class="center-align pink-text text-darken-4">
             All The Recipes You Love
         </h2>
+
+        {% if recipes|length == 0 %}
+        <!-- Displays if the food menu has no recipes listed -->
+
+       
+        <div class="col s10 m8 offset-s1 offset-m2">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <strong class="col s12 center-align">Sorry!</strong><br><br>
+                    <strong class="col s12 center-align">But it looks like no recipes has been posted for {{ menu }} yet.</strong>
+                </div>
+                <div class="card-action center-align">
+                    <a href="{{ url_for('get_recipe_categories') }}" class="yellow-text text-darken-4">Go Back to the Menu Catalog</a>
+                    <a href="{{ url_for('show_all_recipes') }}" class="yellow-text text-darken-4">View All The Recipes</a>
+                </div>
+            </div>
+        </div>
+    
+
+        {% else %}
         {% for recipe in recipes %}
             <div class="col s6  m4 l3 ">
                 <div class="card medium">
@@ -34,11 +54,11 @@
                         <form class="col s12" method="POST" action="{{ url_for('show_all_recipes') }}">    
                             <input type="hidden" id="recipe_id" name="recipe_id" value="{{ recipe._id }}">
                             <div class="row">
-                                <div class="col s4 offset-s4">
-                                    <button class="btn-large waves-effect waves-light green left" type="submit" name="delete-recipe">
+                                <div class="col s12 m10 offset-m1">
+                                    <button class="col s12 m5 left btn-large waves-effect waves-light green " type="submit" name="delete-recipe">
                                         Yes <i class="material-icons right">event_available</i>
                                     </button>
-                                    <button class="btn-large waves-effect waves-light red right modal-close">
+                                    <button class="col s12 m5 right btn-large waves-effect waves-light red modal-close">
                                         No <i class="material-icons right">event_busy</i>
                                     </button>
                                 </div>
@@ -48,6 +68,7 @@
                 </div>
             </div> <!-- /End modal-->
         {% endfor %}
+        {% endif %}
         
         
     </section>

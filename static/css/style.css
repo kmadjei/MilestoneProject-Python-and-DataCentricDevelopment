@@ -4,7 +4,6 @@ body {
     padding: 0;
     position: relative;
 }
-
 nav #logo {
     font-size: 20px;
     margin-left: 10px;
@@ -111,4 +110,21 @@ footer {
     justify-content: center;
     align-items: center;
     color: #fff;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 600px) {
+    #page-title {
+        font-size: 30px;
+    }
+
+    .home-content img {
+        display: none;
+        
+    }
+    .home-content h1 {
+        font-size: 45px;
+    }
+    
+
 }

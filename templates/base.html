@@ -56,7 +56,7 @@
            
   </header>
   
-  <section>
+  <section class="container">
     <!-- 
       Display flash message feed back for users
       Source code example from CODE institute 'Backend Development' module
@@ -66,7 +66,9 @@
         {% if messages %}
             {% for message in messages %}
                 <div class="row flashes">
-                    <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                  <div class="col s10 m8 offset-s1 offset-m2 white-text light-blue darken-1">
+                    <h4 class="center-align">{{ message }}</h4>
+                  </div>
                 </div>
             {% endfor %}
         {% endif %}
@@ -79,7 +81,7 @@
  
 
   <footer class="grey darken-2" >
-    <p>Copyright 2021 &copy; Canadian Business College - Milestone Project - Python and Data Centric
+    <p class="col s12 center-align">Copyright 2021 &copy; Canadian Business College - Milestone Project - Python and Data Centric
       Development - Kenneth Adjei</p>
   </footer>
 
