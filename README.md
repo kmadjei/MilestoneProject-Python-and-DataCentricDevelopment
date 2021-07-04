@@ -39,10 +39,26 @@ In addition, you may also use this section to discuss plans for additional featu
 
 ## Technologies Used
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+- [HTML](https://www.w3schools.com/html/default.asp)
+    - The project uses **HTML** to produce the web contents elements.
+
+- [CSS](https://www.w3schools.com/CSS/default.asp)
+    - The project uses **CSS** to create visually pleasing content.
+
+- [Materialize CSS](https://materializecss.com/)
+    - The project uses **Matrialize CSS** version 1, frontend design framework, to produce better UI/UX for mobile first development.
+
+- [Flask]https://flask.palletsprojects.com/en/2.0.x/)
+    - The project uses the **Flask**  framework to simplify and speedup, frontend and backend development.
+
+- [MongoDB](https://www.mongodb.com/2)
+    - In this project, **MongoDB** is used to manage the database development.
+
+- [Python](https://www.python.org/doc/)
+    - The project uses **Python** to process server side functionalities, such as CRUD and form submissions.
 
 - [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
+    - The project uses **JQuery** to simplify DOM manipulation for UI contents.
 
 
 ## Testing
@@ -80,12 +96,19 @@ In addition, if it is not obvious, you should also describe how to run your code
 ## Credits
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+- The sample recipes utilized in this web application project were obtained from:
+    - [Secret Detox Drink Recipe](https://draxe.com/recipes/secret-detox-drink/)
+    - [Meal-Prep Shrimp Taco Bowls](https://gimmedelicious.com/shrimp-taco-meal-prep-bowls/)
+    - [VERY BEST LENTIL SOUP](https://downshiftology.com/recipes/very-best-lentil-soup/)
+    - [Freezer Breakfast Burritos](https://www.crunchycreamysweet.com/freezer-breakfast-burritos-recipe/)
+    - [Grilled Corn Salad](https://www.allrecipes.com/recipe/214934/grilled-corn-salad/#)
+    - [Feel Better Chicken Soup Recipe](https://www.feastingathome.com/chicken-soup/)
 
 ### Media
-- The photos used in this site were obtained from ...
+- Background image, by Lily Banse, for the home page was obtained from [unsplash](https://unsplash.com/photos/-YHSwy6uqvk)
 
 ### Acknowledgements
-
-- I received inspiration for this project from X
+- In order to build this project successfully, the lessons from Code Institute learning platform was an extremely valuable resource to have.
+    - I am expecially thankful for the [Backend Development walkthrough project](https://github.com/kmadjei/backend-mini-project), led by Tim Nelson, Code Institute instructor.
+- My instructor, Usmaan Mujtaba, from the Canadian Business College also played a major role in resolving technical issues encountered through out the project and providing guidance building a full stack project.
 
