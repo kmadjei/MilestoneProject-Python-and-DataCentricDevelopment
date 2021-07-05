@@ -29,9 +29,13 @@ Get the users more engage in adding and sharing recipe with the rest of the worl
     - I should also have the capability to Add, view, edit and delete my own food categories.
 - As a first time visiter of the site, It would be awesome to view a list of all recipes either by category or none.
 
-```
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
-```
+**Click these links below to access the files**
+
+[Wireframes]()
+
+[Sitemap]()
+
+[ER Diagram]()
 
 
 ## Features
