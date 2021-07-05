@@ -48,7 +48,7 @@ In addition, you may also use this section to discuss plans for additional featu
 - [Materialize CSS](https://materializecss.com/)
     - The project uses **Matrialize CSS** version 1, frontend design framework, to produce better UI/UX for mobile first development.
 
-- [Flask]https://flask.palletsprojects.com/en/2.0.x/)
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/)
     - The project uses the **Flask**  framework to simplify and speedup, frontend and backend development.
 
 - [MongoDB](https://www.mongodb.com/2)
@@ -83,6 +83,8 @@ If this section grows too long, you may want to split it off into a separate fil
 
 ## Deployment
 
+The Food Lovers - Backend Development Project - has been deployed to 👉[Heroku.](https://python-and-datacentric-project.herokuapp.com/)👈
+
 This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
 
 In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
@@ -91,6 +93,46 @@ In particular, you should provide all details of the differences between the dep
 - Separate git branch?
 
 In addition, if it is not obvious, you should also describe how to run your code locally.
+
+### Deploying To Heroku
+
+1. In order to deploy to heroku, a Github repository was created for the project.
+2. Make sure to have downloaded [Git Bash](https://www.atlassian.com/git/tutorials/git-bash)
+3. Go to the root folder directory of the app on the local computer.
+4. Right click it and select **Git Bash here** to open the CLI terminal.
+5. Initialize the project directory by typing ```git init``` in the terminal and pressing the Enter key.
+6. Copy the url of the Github repository created for the app.
+7. On the terminal, add the url you copided, as a remote with the command 
+    ```git remote add origin <paste your github URL here> ```
+
+8. Next, commit all your changes to git with these commands
+    ```bash
+    git add . 
+    git commit -m "Your message here. Example <First commit>"
+    ```
+9. Create the main branch of your repository with the command ```git branch -M main```
+10.  After the steps above,  the project can now be pushed to the repository with the command ```git push```
+11. Now the project is ready to be deployed to Heroku.
+12. Before deploying our Python App to Heroku, 2 files will need to be created. **Procfile and Requirements.txt**
+    1. In the gitbash terminal of the root folder directory of the project. Run these commands to create the procfile and requirements.txt. Note: Make sure you have downloaded and added python to your environment variables.
+    ```bash
+    pip3 freeze --local > requirements.txt
+    touch Procfile
+    ```
+    2. Make sure the Procfile created has a capital "P" in the title. Open the Procfile in a text editor and add this line of text on the first line ```web: python app.py```. Note: make sure there is not extra line after the first one. Not even an empty line.
+    3. Repeat step 8 and 10 of the steps above.
+13. After creating an account on Heroku, an app name where the project is hosted will need to be created from the dash board.
+Link goes here
+14. Select the app created.
+15. Click on the settings tab and then click the **Reveal Config Vars** to add the config variables of the python application.
+16. The config variables added will be similar to the ```env.py``` file utilized in deploying the application on the local PC, similar to the variables in enclosed in brackets in this [env sample](https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/env_sample.py)
+17. Once the config vars are added, navigate to the **Deploy** tab.
+18. In the diployment section, select Github for the deployment method and connect to the github repository for the project by searching for its name.
+19. When you scroll further down the page you will have to select the automatic deployment and for the manual deploy section, choose main branch and click the ```Deploy Branch``` button.
+20. The above steps will cause Heroku to process the project files and create a link for you to view the live deployment of the Flask Web Application Project.
+
+
+
 
 
 ## Credits
@@ -109,6 +151,6 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 ### Acknowledgements
 - In order to build this project successfully, the lessons from Code Institute learning platform was an extremely valuable resource to have.
-    - I am expecially thankful for the [Backend Development walkthrough project](https://github.com/kmadjei/backend-mini-project), led by Tim Nelson, Code Institute instructor.
-- My instructor, Usmaan Mujtaba, from the Canadian Business College also played a major role in resolving technical issues encountered through out the project and providing guidance building a full stack project.
+    - I am expecially thankful for the [Backend Development walkthrough project](https://github.com/Code-Institute-Solutions/TaskManagerAuth/tree/main/08-SearchingWithinTheDatabase/01-text_index_searching), led by Tim Nelson, Code Institute instructor.
+- My instructor, Usmaan Mujtaba, from the Canadian Business College also played a major role in resolving technical issues encountered through out the project and providing guidance on building a full stack project.
 
