@@ -122,17 +122,25 @@ In addition, if it is not obvious, you should also describe how to run your code
     2. Make sure the Procfile created has a capital "P" in the title. Open the Procfile in a text editor and add this line of text on the first line ```web: python app.py```. Note: make sure there is not extra line after the first one. Not even an empty line.
     3. Repeat step 8 and 10 of the steps above.
 13. After creating an account on Heroku, an app name where the project is hosted will need to be created from the dash board.
-Link goes here
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/heroku-new.PNG?raw=true" alt="Deploy image">
+
 14. Select the app created.
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/appname.PNG?raw=true" alt="Deploy image">
+
 15. Click on the settings tab and then click the **Reveal Config Vars** to add the config variables of the python application.
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/settings.PNG?raw=true" alt="Deploy image">
+
 16. The config variables added will be similar to the ```env.py``` file utilized in deploying the application on the local PC, similar to the variables in enclosed in brackets in this [env sample](https://github.com/Code-Institute-Solutions/TaskManagerAuth/blob/main/08-SearchingWithinTheDatabase/01-text_index_searching/env_sample.py)
 17. Once the config vars are added, navigate to the **Deploy** tab.
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/deploytab.png?raw=true" alt="Deploy image">
+
 18. In the diployment section, select Github for the deployment method and connect to the github repository for the project by searching for its name.
-19. When you scroll further down the page you will have to select the automatic deployment and for the manual deploy section, choose main branch and click the ```Deploy Branch``` button.
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/deploy.png?raw=true" alt="Deploy image">
+
+19. Further down the page you will have to select the automatic deployment and for the manual deploy section, choose main branch and click the ```Deploy Branch``` button.
+<img src="https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/herokudeploy/viewlive.png?raw=true" alt="Deploy image">
+
 20. The above steps will cause Heroku to process the project files and create a link for you to view the live deployment of the Flask Web Application Project.
-
-
-
 
 
 ## Credits
