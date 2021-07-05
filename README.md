@@ -14,17 +14,27 @@ Check  the link below for a live preview:
 
  
 ## UX
- 
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
+### Project Goals
+The purpose of the Food Lovers Web Application Project, is to build an online cook book community for people that love food and would like to share that passion with others. 
 
+### User's Goal
+The user's goals would be to find list of new inspiring recipe ideas to explore and add their own original recipes that other users may be interested in.
+
+### Site owner's goal 
+Get the users more engage in adding and sharing recipe with the rest of the world, leading to further development of the **Food Lovers** website as a community.
+
+### User stories
+- As a member of the website, I would like to be able view records of my recipes shared through my profile, so that I can easily update or delete it.
+    - I should also have the capability to Add, view, edit and delete my own food categories.
+- As a first time visiter of the site, It would be awesome to view a list of all recipes either by category or none.
+
+```
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+```
+
 
 ## Features
-
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
  
 ### Existing Features
 - Feature 1 - allows users X to achieve Y, by having them fill out Z
@@ -35,7 +45,9 @@ For some/all of your features, you may choose to reference the specific project 
 In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
 
 ### Features Left to Implement
-- Another feature idea
+- Prompting user's about the effects of deleting a food category and updating the list of recipes listed under that specific category.
+- Creating a user dashboard to provide some statistics about all the recipes.
+- Adding text query search functionality for the list of recipes
 
 ## Technologies Used
 
