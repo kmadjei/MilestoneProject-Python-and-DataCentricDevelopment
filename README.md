@@ -31,9 +31,9 @@ Get the users more engage in adding and sharing recipe with the rest of the worl
 
 **Click these links below to access the files**
 
-[Wireframes]()
+[Wireframes](https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/tree/master/static/images/Python-Project-3%20-%20Mockups)
 
-[Sitemap]()
+[Sitemap](https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/sitemap.png)
 
 [ER Diagram]()
 
