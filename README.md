@@ -35,14 +35,19 @@ This section is also where you would share links to any wireframes, mockups, dia
 
 
 ## Features
- 
+
 ### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
-
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+- Home Page - is a landing page that serves as a brief introduction to what users can expect from the website.
+- The Recipe page - allows users to browse through a catalog of different recipes users can choose to cook.
+- The Register Page - allows new vsisiters to become part of the Food Lovers community.
+- Log In Page - gives users access to the full functionality the website has to offer.
+    - Users can add, edit, and delete recipes of their own
+    - Profile page - gives users relevant information about their personal account.
+    - Log out button - allows for users to safely exit out of their account so that nobody else can access their database.
+- Form submissions 
+    - CRUD functionalities - provides users with add, read, and delete elements relevant for the recipes.
+    - Authentication - protects the privacy of users
+- Flask.escape() -  a mechanism for guarding against html injection from users trying to send harmful data through the website
 
 ### Features Left to Implement
 - Prompting user's about the effects of deleting a food category and updating the list of recipes listed under that specific category.
