@@ -85,15 +85,6 @@ If this section grows too long, you may want to split it off into a separate fil
 
 The Food Lovers - Backend Development Project - has been deployed to 👉[Heroku.](https://python-and-datacentric-project.herokuapp.com/)👈
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
-
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
-
-In addition, if it is not obvious, you should also describe how to run your code locally.
-
 ### Deploying To Heroku
 
 1. In order to deploy to heroku, a Github repository was created for the project.
