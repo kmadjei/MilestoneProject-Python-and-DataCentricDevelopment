@@ -84,23 +84,56 @@ Get the users more engage in adding and sharing recipe with the rest of the worl
 
 ## Testing
 
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
+1. Navigation Links:
+    1. Clicking on the **logo** redirects to the homepage.
+    2. Clicking on **Log in** leads user to log in forms
+    3. Selecting **Register** leads users to the register form.
+    4. Users are redirected back to log in form when log out is clicked
+    5. Clicking **Recipes** redirects to the page with listed recipes.
+    6. Clicking on **Add a Recipe**, redirects user to the form for adding a recipe
+    8. The selection ofr the **Profile** link redirects to the profile page
 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
+2. CRUD functionalities:
+    1. Recipe:
+        1. Adding a recipe
+            1. Goto "Add a Recipe" page
+            2. Try to submit empty and verify error message from form
+            3. Each form field returns red line color for selected fields that are still empty
+            4. Successful form submittion redirects user to "ALl Recipes" page with a feedback message
+        2. Read recipe:
+            1. Selecting view recipe redirects user to detailed recipe page
+        3. Edit recipe:
+            1. Only registered user authors have access to edit recipe details
+            2. Selecting edit recipe button redirects user to edit page with a form prefilled with relevant values.
+            3. Submitting form successfuly redirects user back to the detailed recipe page with relevant feedback message
+            4. Form submission with empty fields prompts error message for user
+        4. Delete recipe:
+            1. Delete buttons can only be accessed by registered user authors
+            2. Selecting delete prompts user for confirmation
+            3. Upon confirmation, user is redirected back to "Recipes" page with feedback message
+    
+    2. Recipe Category/Menu:
+        1. The above testing sceneratios for recipe also applies here
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
+3. Flask template engine:
+    1. Each page renders as it should 
+    2. Flask automatically tracks syntax error passed on to HTML template files and displays the location of it
 
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
+4. Device Responsiveness:
+    1. The web application successfuly adjust to different device screen width
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
+5. Cross Browser Test:
+    1. Web Application displays the same way on Chrome and Microsoft edge
 
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
+6. Register form:
+    1. Users submitting empty form fields receives error message from the front end.
+    2. Form returns feedback message if selected username already exits in the database
+    3. Successfull form submission redirects user to the profile page with user feedback.
 
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
+7. Login form:
+    1. Users submitting empty fields are receives error message 
+    2. Users submitting the wrong username or password are redirected back to the page with relevant feedcback message
+    3. Successfull form submission redirects user to the profile page with user feedback message.
 
 ## Deployment
 
@@ -114,7 +147,7 @@ The Food Lovers - Backend Development Project - has been deployed to 👉[Heroku
 4. Right click it and select **Git Bash here** to open the CLI terminal.
 5. Initialize the project directory by typing ```git init``` in the terminal and pressing the Enter key.
 6. Copy the url of the Github repository created for the app.
-7. On the terminal, add the url you copided, as a remote with the command 
+7. On the terminal, add the url you copied, as a remote with the command 
     ```git remote add origin <paste your github URL here> ```
 
 8. Next, commit all your changes to git with these commands
