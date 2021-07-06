@@ -35,7 +35,7 @@ Get the users more engage in adding and sharing recipe with the rest of the worl
 
 - [Sitemap](https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/sitemap.png)
 
-- [ER Diagram]()
+- [ER Diagram](https://github.com/kmadjei/MilestoneProject-Python-and-DataCentricDevelopment/blob/master/static/images/ERdiagram.png)
 
 
 ## Features
